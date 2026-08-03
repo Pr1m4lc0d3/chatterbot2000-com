@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chatterbot 2000 — an AI terminal for your desktop</title>
+<meta name="description" content="A Rainmeter skin that talks to any OpenAI-compatible model — including one running on your own machine. Live web search, real weather, no account. Free and MIT licensed.">
+<link rel="canonical" href="https://chatterbot2000.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chatterbot2000.com/">
+<meta property="og:site_name" content="Chatterbot 2000">
+<meta property="og:title" content="Chatterbot 2000 — an AI terminal for your desktop">
+<meta property="og:description" content="A Rainmeter skin that talks to any OpenAI-compatible model — including one running on your own machine. Live web search, real weather, no account.">
+<meta property="og:image" content="https://chatterbot2000.com/assets/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Chatty, a small cream-coloured robot with a glowing blue face, beside a conversation about the weather in Denver.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#get">Skip to download</a>
+
+<header class="topbar">
+  <span class="brand"><img src="assets/favicon-32.png" alt="" width="26" height="26">Chatterbot&nbsp;2000</span>
+  <nav>
+    <a href="#what">What it does</a>
+    <a href="#personas">Personas</a>
+    <a href="https://github.com/Pr1m4lc0d3/chatterbot-2000">GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ── hero ─────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <img class="art" src="assets/og.png" width="1200" height="630"
+       alt="Chatterbot 2000 — an AI terminal for your desktop. Chatty, a small cream robot with a glowing blue face, beside a conversation about the weather.">
+
+  <h1>It answers on your desktop, not in a browser tab.</h1>
+  <p class="lede">Chatty sits on your wallpaper. Type in the bar at the bottom and the answer
+     appears in place — nothing opens, nothing steals your focus. Behind it is any
+     OpenAI-compatible model you like, including one running on your own machine.</p>
+
+  <p class="prereq">
+    <strong>Chatterbot 2000 is a Rainmeter skin, not a standalone program.</strong>
+    You need <a href="https://www.rainmeter.net/">Rainmeter</a> installed first — free,
+    open source, Windows only, 4.5 or newer. Without it, the download will not run.
+  </p>
+
+  <!-- soft gate: the email is optional and the bypass is right there -->
+  <form id="get" class="get" novalidate>
+    <label for="email">New characters are coming. Want them when they land?</label>
+    <div class="row">
+      <input id="email" name="email_address" type="email" autocomplete="email"
+             placeholder="you@example.com" required>
+      <button type="submit">Email me &amp; download</button>
+    </div>
+    <a class="plain" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000.rmskin">
+      No thanks — just download</a>
+    <p class="said" hidden>Thanks — check your inbox. Your download is starting.</p>
+  </form>
+  <p class="tiny">Free · MIT licensed · one-click <code>.rmskin</code> installer · Windows</p>
+</section>
+
+<!-- ── install ──────────────────────────────────────────────────────── -->
+<section class="band" id="install">
+  <h2>Getting it running</h2>
+  <ol class="steps">
+    <li><b>Install Rainmeter.</b> <a href="https://www.rainmeter.net/">rainmeter.net</a> —
+        free, open source, Windows only. Nothing here works without it.</li>
+    <li><b>Download the <code>.rmskin</code> and double-click it.</b> Rainmeter's own
+        installer does the rest.</li>
+    <li><b>Click the gear and pick a provider.</b> The status light starts red because
+        nothing is configured yet. Choose one and it turns green.</li>
+  </ol>
+</section>
+
+<!-- ── what it does ─────────────────────────────────────────────────── -->
+<section id="what">
+  <h2>What it does</h2>
+  <div class="cards">
+
+    <article class="card wide">
+      <img src="assets/panel-chat.png" width="380" height="532"
+           alt="The Chatterbot panel answering a weather question and a Super Bowl question, with three clickable source links listed underneath.">
+      <div>
+        <h3>It looks things up, then shows its work</h3>
+        <p>The model decides when it needs to search. Results come back as clickable source
+           pills under the answer, so you can check where a claim came from instead of
+           taking its word for it.</p>
+        <p>Weather is real measured conditions and a three-day forecast from Open-Meteo —
+           no key, ever. And the date goes into every request, so it will not hand you a
+           two-year-old result and call it the latest.</p>
+      </div>
+    </article>
+
+    <article class="card wide">
+      <img src="assets/panel-settings.png" width="380" height="532"
+           alt="The settings view listing providers DeepSeek, OpenAI, Ollama, LM Studio and Custom, with the API key shown masked.">
+      <div>
+        <h3>Any model, including your own</h3>
+        <p>DeepSeek, OpenAI, Groq, OpenRouter, Together — or <b>Ollama</b> and
+           <b>LM Studio</b> running locally, which need no API key at all. Pick a preset and
+           it fills in the base URL and a sensible default model.</p>
+        <p>Keys are stored on your disk and displayed masked, so a screenshot can't leak one.</p>
+      </div>
+    </article>
+
+    <article class="card wide">
+      <img class="strip" src="assets/panel-collapsed.png" width="380" height="65"
+           alt="The panel collapsed down to just its title bar.">
+      <div>
+        <h3>Gets out of the way</h3>
+        <p>Click the title and it folds down to its header. Click again and the
+           conversation is still there. When you want the desktop back, you take it back.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── privacy ──────────────────────────────────────────────────────── -->
+<section class="band" id="privacy">
+  <h2>Where your words go</h2>
+  <ul class="plainlist">
+    <li><b>With a local provider — nowhere.</b> Point it at Ollama or LM Studio and there is
+        no key, no account, and nothing leaves the machine.</li>
+    <li><b>With a cloud provider</b>, your messages go to that provider and nowhere else.
+        There is no server in the middle, because there is no server.</li>
+    <li><b>Weather is looked up by a place name you typed</b> — never your location.</li>
+    <li><b>Your keys live in <code>@Resources\config.json</code> on your own disk.</b> That
+        file is excluded from the package and from version control.</li>
+  </ul>
+  <p class="note">There is no telemetry in the skin. This website counts visits with Google
+     Analytics, which is a different thing in a different place, and it is only fair to say so.</p>
+</section>
+
+<!-- ── providers ────────────────────────────────────────────────────── -->
+<section id="providers">
+  <h2>Providers</h2>
+  <table>
+    <thead><tr><th>Provider</th><th>Base URL</th><th>Key needed</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ollama</b></td><td><code>http://localhost:11434/v1</code></td><td class="no">none</td></tr>
+      <tr><td><b>LM Studio</b></td><td><code>http://localhost:1234/v1</code></td><td class="no">none</td></tr>
+      <tr><td>DeepSeek</td><td><code>https://api.deepseek.com</code></td><td>yes</td></tr>
+      <tr><td>OpenAI</td><td><code>https://api.openai.com/v1</code></td><td>yes</td></tr>
+      <tr><td>Custom</td><td>whatever you type</td><td>depends</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Web search is optional and uses <a href="https://tavily.com">Tavily</a> —
+     the free tier is 1,000 searches a month and needs no card. Without a key there is a
+     DuckDuckGo fallback that works for a handful of queries and then serves a CAPTCHA;
+     when that happens Chatty says so plainly rather than pretending.</p>
+</section>
+
+<!-- ── personas ─────────────────────────────────────────────────────── -->
+<section id="personas">
+  <h2>The skin is a shell. Somebody else can inhabit it.</h2>
+  <div class="cards">
+    <article class="card wide">
+      <img src="assets/panel-apothecary.png" width="380" height="532"
+           alt="The same panel wearing a different character: Apothecary 2000, with an elderly herbalist's portrait, answering a question about bedtime tea.">
+      <div>
+        <p>Open settings, click <b>PERSONA</b>, and each click loads the next installed pack.
+           The header name, the prompt in the input bar, the face and the personality all
+           change together.</p>
+        <p>A pack is one self-contained folder — a <code>persona.json</code> and a
+           <code>face.png</code>. Installing one is a folder copy; removing one is a delete.
+           Nothing is scattered into shared folders, so a pack you were handed can be thrown
+           away cleanly.</p>
+        <p>Chatty ships as a pack like any other, so the built-in character is not a special
+           case in the code and the cycle always has somewhere to return to.</p>
+        <p class="tiny">More characters are on the way.
+           <a href="#get">Get told when they land.</a></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><b>Chatterbot 2000</b> — built by Ryan Heltemes.
+     <a href="https://github.com/Pr1m4lc0d3/chatterbot-2000">Source on GitHub</a>, MIT licensed.</p>
+  <p class="tiny">Requires <a href="https://www.rainmeter.net/">Rainmeter</a> for Windows.
+     Type is <a href="https://fonts.google.com/specimen/Quicksand">Quicksand</a>, used under
+     the SIL Open Font License. Weather from <a href="https://open-meteo.com/">Open-Meteo</a>,
+     search via <a href="https://tavily.com">Tavily</a>.</p>
+</footer>
+
+<iframe name="sink" title="form target" hidden></iframe>
+
+<script>
+(function () {
+  var RELEASE = "https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000.rmskin";
+  var KIT = "";                        // Kit form endpoint, filled in at wiring time
+  var form = document.getElementById("get");
+  var said = form.querySelector(".said");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = form.email.value.trim();
+    if (!email || email.indexOf("@") < 1) { form.email.focus(); return; }
+
+    // Post into a hidden iframe: no CORS to negotiate, and it is a genuine
+    // browser submit, which is the only kind Kit reliably keeps.
+    if (KIT) {
+      var f = document.createElement("form");
+      f.method = "post"; f.action = KIT; f.target = "sink"; f.hidden = true;
+      var i = document.createElement("input");
+      i.name = "email_address"; i.value = email;
+      f.appendChild(i); document.body.appendChild(f); f.submit();
+    }
+    said.hidden = false;
+    setTimeout(function () { window.location.href = RELEASE; }, 600);
+  });
+})();
+</script>
+
+</body>
+</html>
