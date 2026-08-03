@@ -135,5 +135,7 @@ footer p{margin-bottom:.6rem}
 .get .formkit-submit{background:var(--user);color:#eaf1ff;border:1px solid #3a5f9c;
   border-radius:9px;font:inherit;font-weight:600}
 .get .formkit-submit:hover{background:#27436f}
+.get .formkit-alert{list-style:none;padding:0;margin:0 0 .8rem;color:#ff9c8a;font-size:.93rem}
+.get .formkit-alert:empty{display:none}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

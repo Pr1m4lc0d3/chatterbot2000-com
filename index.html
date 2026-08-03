@@ -76,6 +76,8 @@
         action="https://app.kit.com/forms/9757745/subscriptions" method="post"
         data-sv-form="9757745" data-uid="ecf438f66f" data-format="inline" data-version="5">
     <label for="email">New characters are coming. Want them when they land?</label>
+    <!-- ck.5.js writes validation errors here; without it, it throws in clearErrors -->
+    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
     <div class="row">
       <input id="email" class="formkit-input" name="email_address" type="email"
              autocomplete="email" aria-label="Email Address"
