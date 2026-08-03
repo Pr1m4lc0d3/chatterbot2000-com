@@ -126,6 +126,14 @@ footer{
   max-width:var(--wrap);margin-inline:auto;color:var(--muted);font-size:.93rem;
 }
 footer p{margin-bottom:.6rem}
-iframe[name=sink]{display:none}
+
+/* Kit's ck.5.js injects its own formkit-* styles; keep ours winning. */
+.get.formkit-form[data-uid]{background:var(--panel);border:1px solid var(--line);
+  padding:1.5rem 1.4rem;max-width:60ch;margin:0 auto 1.1rem}
+.get .formkit-input{background:#0a0e14;color:var(--ink);border:1px solid var(--line);
+  border-radius:9px;font:inherit;font-size:1rem}
+.get .formkit-submit{background:var(--user);color:#eaf1ff;border:1px solid #3a5f9c;
+  border-radius:9px;font:inherit;font-weight:600}
+.get .formkit-submit:hover{background:#27436f}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
