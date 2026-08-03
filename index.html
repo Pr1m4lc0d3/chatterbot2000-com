@@ -27,6 +27,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F7WLK0CG8X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F7WLK0CG8X');   /* all-sites roll-up */
+  /* TODO: add this site's own property id here once it exists in GA4,
+     matching the two-tag pattern every other site uses. */
+</script>
 </head>
 <body>
 
@@ -209,6 +219,13 @@
   var KIT = "";                        // Kit form endpoint, filled in at wiring time
   var form = document.getElementById("get");
   var said = form.querySelector(".said");
+  var track = function (name, params) {
+    if (typeof gtag === "function") { gtag("event", name, params || {}); }
+  };
+
+  form.querySelector(".plain").addEventListener("click", function () {
+    track("download_click", { method: "direct" });
+  });
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -224,6 +241,8 @@
       i.name = "email_address"; i.value = email;
       f.appendChild(i); document.body.appendChild(f); f.submit();
     }
+    track("signup_submit", { list: "personas" });
+    track("download_click", { method: "email" });
     said.hidden = false;
     setTimeout(function () { window.location.href = RELEASE; }, 600);
   });
