@@ -1,0 +1,40 @@
+/* The agent grid. Everything else is inherited from ..\style.css so the two
+   pages cannot drift into two looks. */
+.lede { max-width: 62rem; margin: 3rem auto 0; padding: 0 1.25rem; }
+.lede h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 .5rem; }
+.lede .sub { color: var(--muted); font-size: 1.15rem; max-width: 42rem; }
+.lede .need { margin-top: 1.25rem; font-size: .95rem; }
+
+.how { max-width: 62rem; margin: 2.5rem auto 0; padding: 0 1.25rem; }
+.how h2 { font-size: 1.15rem; margin: 0 0 .75rem; }
+.how ol { color: var(--muted); line-height: 1.9; padding-left: 1.1rem; margin: 0; }
+.how b { color: var(--ink); }
+.how .note { color: var(--muted); font-size: .92rem; margin-top: 1rem; }
+
+.grid {
+  max-width: 62rem; margin: 2.5rem auto 4rem; padding: 0 1.25rem;
+  display: grid; gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+.agent {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1rem; display: flex; flex-direction: column;
+}
+.agent .face {
+  width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;
+  border-radius: 8px; border: 1px solid var(--c, var(--line));
+}
+.agent h3 { margin: .8rem 0 .35rem; font-size: 1.1rem; color: var(--c, var(--ink)); }
+.agent p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.5; }
+.agent .anchor { margin-top: .6rem; font-size: .82rem; color: var(--muted); }
+
+.buy {
+  margin-top: .9rem; text-align: center; padding: .55rem .8rem;
+  border-radius: 999px; border: 1px solid var(--line);
+  background: #0d1117; color: var(--ink); text-decoration: none; font-weight: 600;
+}
+.buy:hover { border-color: var(--c, var(--accent)); }
+.buy.soon { color: var(--muted); font-weight: 500; cursor: default; }
+
+.foot { border-top: 1px solid var(--line); padding: 2rem 1.25rem; text-align: center; color: var(--muted); }
