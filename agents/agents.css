@@ -27,6 +27,9 @@
 }
 .agent h3 { margin: .8rem 0 .35rem; font-size: 1.1rem; color: var(--c, var(--ink)); }
 .agent p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.5; }
+/* The hook: why you want it, as opposed to what it is. Brighter than the pitch
+   because it is the line that does the selling. */
+.agent .hook { margin-top: .55rem; color: var(--ink); }
 .agent .anchor { margin-top: .6rem; font-size: .82rem; color: var(--muted); }
 
 .buy {
