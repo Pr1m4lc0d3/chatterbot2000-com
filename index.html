@@ -19,213 +19,236 @@
 
 <style>
 /* ============================================================================
-   ONE SCREEN. The whole job of this page is to make someone download a free
-   app, and every extra section is another chance to leave before they do.
+   1950s ADVERTISEMENT. Printed-page cream, two flat spot colours, heavy black
+   rules, a starburst doing the shouting. The period look is not decoration: a
+   mid-century advert has exactly ONE job on the page and says it enormously,
+   which is the same job this page has - get the free app downloaded.
 
-   ⛔ THE DOWNLOAD BUTTON IS ABOVE THE FOLD AND NEVER MOVES BELOW IT. Anything
-   that pushes it down is cut, not shrunk.
+   ⛔ ONE SCREEN, NO SCROLLBAR. html and body are height-locked with overflow
+   hidden, and every vertical measure is in vh, so the layout COMPRESSES rather
+   than growing a scrollbar. Anything that will not fit is cut, not shrunk.
+
+   ⛔ CHATTY IS CREAM AND SO IS THE PAPER. On a bare cream ground he disappears,
+   so he stands on a flat teal roundel - which is also the period-correct device
+   for putting a mascot on a page.
+
+   ⛔ NO MENTION OF RAINMETER. This is a Windows application. The skin is a
+   different product with a different audience, and naming it here asks a
+   first-time visitor to understand our product line before they can download
+   anything.
    ============================================================================ */
 :root {
-  --bg:      #080b10;
-  --panel:   #0e131b;
-  --ink:     #f2efe9;
-  --muted:   #97a3b4;
-  --line:    #1e2733;
-  --accent:  #82b4f5;
-  --cream:   #e7ddcd;
-  --free:    #5adc78;
+  --paper:  #f4ead5;   /* aged newsprint cream */
+  --ink:    #1c1a17;
+  --teal:   #1f8a8c;   /* a spot colour a 1950s press could actually hold */
+  --tomato: #d8452f;
+  --gold:   #f0b429;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 body {
-  height: 100vh;
-  overflow: hidden;
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
-  font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font: 16px/1.5 "Futura", "Century Gothic", "Trebuchet MS", Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
-a { color: var(--accent); }
 
-/* A soft bloom behind Chatty so he sits in light rather than on a flat slab. */
-.stage {
-  position: relative;
-  max-width: 1180px;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 3vh 28px 2vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.stage::before {
+/* Halftone dots - the cheapest honest signal of a printed page. */
+body::before {
   content: "";
-  position: absolute;
-  left: -10%; top: -12%;
-  width: 70%; height: 90%;
-  background: radial-gradient(closest-side, rgba(130,180,245,.16), transparent 70%);
+  position: fixed; inset: 0;
+  background-image: radial-gradient(var(--ink) 0.8px, transparent 0.9px);
+  background-size: 5px 5px;
+  opacity: .05;
   pointer-events: none;
 }
 
-.hero {
-  flex: 1 1 auto;
-  align-content: center;
+.sheet {
   position: relative;
+  height: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2.4vh 30px 1.6vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex; align-items: center; gap: 14px;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 8px;
+}
+.top .mark { width: 30px; height: 30px; border-radius: 6px; display: block; }
+.top b { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+.top .rule { flex: 1; }
+.top .since { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .6; }
+
+.ad {
+  flex: 1 1 auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: 40px;
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  gap: 34px;
   align-items: center;
+  min-height: 0;              /* lets the grid shrink instead of overflowing */
 }
 
-/* He points RIGHT, straight at the pitch. That is the whole composition. */
-.hero-art { justify-self: center; }
-.hero-art img {
-  width: 100%;
-  max-width: min(420px, 46vh);
-  height: auto;
+.art { position: relative; display: grid; place-items: center; min-height: 0; height: 100%; }
+.art::before {
+  content: "";
+  position: absolute;
+  width: min(30vh, 268px); aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 8px var(--paper), 0 0 0 11px var(--ink);
+  transform: translateY(9%);
+}
+.art img {
+  position: relative;
+  height: min(56vh, 470px);
+  width: auto; max-width: 100%;
   display: block;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
 }
 
+.copy { min-width: 0; }
 .eyebrow {
-  color: var(--muted);
-  font-size: 12.5px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  margin: 0 0 10px;
+  display: inline-block;
+  background: var(--ink); color: var(--paper);
+  font-size: clamp(10px, 1.1vh, 12px); font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  padding: 4px 10px; margin: 0 0 1.3vh;
 }
 h1 {
   margin: 0;
-  font-size: clamp(34px, 5.6vw, 62px);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  font-weight: 700;
+  font-size: clamp(28px, 5.8vh, 64px);
+  line-height: .92;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  font-weight: 800;
 }
-h1 .wordmark { color: var(--cream); display: block; }
-.pitch {
-  margin: 18px 0 0;
-  font-size: clamp(16px, 1.5vw, 19px);
-  color: #d7dee8;
-  max-width: 33em;
+h1 em {
+  display: block; font-style: italic; text-transform: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400; color: var(--tomato);
+  font-size: .44em; letter-spacing: 0; margin-top: .14em;
 }
+.pitch { margin: 1.5vh 0 0; font-size: clamp(13px, 1.8vh, 17px); max-width: 34em; }
 
-/* -- bullets ---------------------------------------------------------------
-   Chatty's own face as the marker, with an emoji riding it. Four short lines,
-   no paragraphs - somebody deciding whether to download reads exactly this. */
-.points { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 13px; }
-.points li { display: flex; align-items: center; gap: 13px; }
-.points .ava { position: relative; flex: 0 0 auto; width: 44px; height: 44px; }
-.points .ava img { width: 100%; height: 100%; display: block; border-radius: 50%; }
-.points .emoji {
-  position: absolute; right: -5px; bottom: -4px;
-  font-size: 17px; line-height: 1;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,.6));
+ul.points { list-style: none; margin: 1.6vh 0 0; padding: 0; display: grid; gap: .85vh; }
+ul.points li { display: flex; align-items: baseline; gap: 10px; font-size: clamp(12px, 1.6vh, 15.5px); }
+ul.points .tick {
+  flex: 0 0 auto; width: 1.15em; height: 1.15em; border-radius: 50%;
+  background: var(--teal); color: var(--paper);
+  font-size: .72em; font-weight: 700;
+  display: grid; place-items: center; transform: translateY(.1em);
 }
-.points b { color: var(--ink); font-weight: 600; }
-.points span { color: var(--muted); }
+ul.points b { font-weight: 700; }
+ul.points a { color: var(--tomato); font-weight: 700; }
 
-/* -- the ask --------------------------------------------------------------- */
-.cta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+/* ⛔ ONE BUTTON. A second choice beside the download is a second decision, and
+   the only decision this page wants is "yes". */
+.cta { margin-top: 2.1vh; }
 .btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--cream); color: #16202c;
-  font-weight: 700; font-size: 16.5px;
-  padding: 15px 26px; border-radius: 12px;
+  display: inline-block;
+  background: var(--tomato); color: #fff;
+  font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  font-size: clamp(15px, 2.35vh, 24px);
+  padding: .8em 1.6em;
+  border: 4px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
   text-decoration: none;
-  box-shadow: 0 10px 30px rgba(0,0,0,.45);
-  transition: transform .12s ease;
+  transition: transform .08s ease, box-shadow .08s ease;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn.ghost {
-  background: transparent; color: var(--ink);
-  border: 1px solid var(--line); box-shadow: none; font-weight: 600;
-}
-.free-note { margin-top: 13px; color: var(--muted); font-size: 13.5px; }
-.free-note b { color: var(--free); }
+.btn:active { transform: translate(4px, 4px); box-shadow: 3px 3px 0 var(--ink); }
+.btn small { display: block; font-size: .48em; letter-spacing: .14em; opacity: .92; margin-top: .25em; }
 
-/* -- footer ---------------------------------------------------------------- */
+.fineprint { margin-top: 1.2vh; font-size: clamp(10px, 1.35vh, 13px); opacity: .8; max-width: 36em; }
+.soon { margin-top: .5vh; font-size: clamp(10px, 1.3vh, 12.5px); letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
+
+.burst {
+  position: absolute; right: 1%; top: 3%;
+  width: min(14vh, 124px); aspect-ratio: 1;
+  background: var(--gold);
+  clip-path: polygon(50% 0%,60% 18%,78% 8%,79% 29%,98% 27%,88% 45%,100% 58%,81% 63%,86% 83%,66% 78%,60% 97%,47% 82%,32% 95%,29% 75%,10% 78%,17% 60%,0% 50%,18% 39%,7% 22%,27% 22%,26% 3%,43% 14%);
+  display: grid; place-items: center; text-align: center;
+  transform: rotate(-12deg);
+}
+.burst span { font-weight: 800; text-transform: uppercase; line-height: 1; font-size: clamp(11px, 1.85vh, 18px); }
+.burst small { display: block; font-size: .52em; letter-spacing: .1em; margin-top: .25em; font-weight: 700; }
+
 footer {
-  border-top: 1px solid var(--line);
-  margin-top: auto; padding-top: 14px;
-  display: flex; flex-wrap: wrap; gap: 8px 22px;
-  align-items: center;
-  color: var(--muted); font-size: 13px;
+  border-top: 3px solid var(--ink);
+  padding-top: 8px;
+  display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: center;
+  font-size: clamp(10px, 1.3vh, 12.5px);
+  text-transform: uppercase; letter-spacing: .08em;
 }
-footer .brand { display: flex; align-items: center; gap: 9px; color: var(--ink); font-weight: 600; }
-footer img { width: 22px; height: 22px; border-radius: 5px; }
-footer a { text-decoration: none; }
+footer a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--tomato); }
+footer .end { margin-left: auto; opacity: .6; }
 
-@media (max-width: 820px) {
-  .hero { grid-template-columns: 1fr; gap: 8px; text-align: center; }
-  .hero-art { order: -1; }
-  .hero-art img { max-width: 260px; }
-  .pitch { margin-left: auto; margin-right: auto; }
-  .points li { text-align: left; }
-  .points { max-width: 420px; margin-left: auto; margin-right: auto; }
-  .cta { justify-content: center; }
+@media (max-width: 860px) {
+  .ad { grid-template-columns: 1fr; gap: 1vh; text-align: center; }
+  .art { order: -1; }
+  .art img { height: 25vh; }
+  .art::before { width: 20vh; }
+  .burst { width: 11vh; right: 0; top: 0; }
+  ul.points { max-width: 30em; margin-left: auto; margin-right: auto; text-align: left; }
   footer { justify-content: center; }
+  .pitch, .fineprint { margin-left: auto; margin-right: auto; }
 }
 </style>
 
-<main class="stage">
-  <section class="hero">
+<main class="sheet">
 
-    <div class="hero-art">
-      <!-- The reflection is baked into the PNG. See Assets\tools\build-hero.ps1 -
-           CSS reflections work in one browser and vanish in another. -->
+  <div class="top">
+    <img class="mark" src="assets/favicon-32.png" alt="">
+    <b>Chatterbot&nbsp;2000</b>
+    <span class="rule"></span>
+    <span class="since">A friendly desktop assistant</span>
+  </div>
+
+  <section class="ad">
+
+    <div class="art">
+      <!-- Reflection is baked into the PNG; see Assets\tools\build-hero.ps1. -->
       <img src="assets/hero-chatty.png" width="580" height="743"
            alt="Chatty, a small cream-coloured robot with a glowing smile, pointing to the right.">
     </div>
 
-    <div class="hero-copy">
+    <div class="copy">
       <p class="eyebrow">Introducing</p>
-      <h1><span class="wordmark">Chatterbot 2000</span></h1>
+      <h1>Chatterbot&nbsp;2000<em>the friendly little robot for your desktop</em></h1>
 
       <p class="pitch">
-        A cheerful little robot who lives in the corner of your desktop and answers
-        when you ask. No browser tab, no sign-up, no subscription — just Chatty,
-        right where you are working.
+        He sits in the corner of your screen and answers when you ask. No browser tab,
+        no sign-up, no subscription — just Chatty, right where you are working.
       </p>
 
       <ul class="points">
-        <li>
-          <span class="ava"><img src="assets/bullet-free.png" alt=""><span class="emoji">🎉</span></span>
-          <span><b>Free, and actually free.</b> No trial, no account, no upsell.</span>
-        </li>
-        <li>
-          <span class="ava"><img src="assets/bullet-key.png" alt=""><span class="emoji">🔑</span></span>
-          <span><b>Bring your own API key.</b> Your provider, your account — we never see a word of it.</span>
-        </li>
-        <li>
-          <span class="ava"><img src="assets/bullet-desktop.png" alt=""><span class="emoji">🖥️</span></span>
-          <span><b>One file, double-click, done.</b> Nothing else to install.</span>
-        </li>
-        <li>
-          <span class="ava"><img src="assets/bullet-agents.png" alt=""><span class="emoji">🎓</span></span>
-          <span><b>Includes CODE·A.I. agents.</b> Forty vocational specialists, inside the app - <a href="https://deliberon.com/code-ai">see what they are</a>.</span>
-        </li>
+        <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial, no account, no upsell.</span></li>
+        <li><span class="tick">✓</span><span><b>Bring your own API key.</b> Your provider, your account — we never see a word of it.</span></li>
+        <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b> Nothing else to install.</span></li>
+        <li><span class="tick">✓</span><span><b>Includes CODE·A.I. agents.</b> Forty vocational specialists, inside the app —
+          <a href="https://deliberon.com/code-ai">see what they are</a>.</span></li>
       </ul>
 
       <div class="cta">
         <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">
-          ⬇ Download for Windows
-        </a>
-        <a class="btn ghost" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000.rmskin">
-          Rainmeter skin
+          Download Free for Windows<small>No account · No subscription</small>
         </a>
       </div>
-      <p class="free-note">
-        <b>Free forever.</b> You supply an API key from OpenAI, Anthropic, DeepSeek —
-        or run a local model and pay nothing at all.
+      <p class="fineprint">
+        You supply an API key from OpenAI, Anthropic or DeepSeek — or run a local model and pay nothing at all.
       </p>
+      <p class="soon">macOS · Linux · Android coming soon</p>
     </div>
 
+    <div class="burst"><span>Free!<small>Forever</small></span></div>
   </section>
 
   <footer>
-    <span class="brand"><img src="assets/favicon-32.png" alt="">Chatterbot&nbsp;2000</span>
+    <span>Chatterbot&nbsp;2000</span>
     <a href="https://deliberon.com/code-ai">CODE·A.I. specialists</a>
-    <a href="https://www.rainmeter.net/">Rainmeter</a>
-    <span style="margin-left:auto">© 2026</span>
+    <span class="end">© 2026</span>
   </footer>
 </main>
