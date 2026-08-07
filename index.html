@@ -13,270 +13,284 @@
 <meta property="og:url" content="https://chatterbot2000.com/">
 <meta property="og:title" content="Chatterbot 2000 — a friendly assistant for your desktop">
 <meta property="og:description" content="A cheerful little robot who lives on your desktop and answers when you ask. Free, forever.">
-<!-- ⛔ PNG, never .webp - several scrapers silently drop a webp og:image. -->
 <meta property="og:image" content="https://chatterbot2000.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- ⛔ REAL DISPLAY TYPE, NOT A SYSTEM FALLBACK. The period look is mostly
+     LETTERING: heavy slab caps for the shout, a brush script for the flourish.
+     Relying on "Futura, Century Gothic" renders as a generic sans on nearly
+     every machine, which is exactly what made the previous attempt read as
+     modern-minimal-with-warm-colours rather than as an advert. -->
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bowlby+One+SC&family=Kalam:wght@700&family=Archivo+Black&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 /* ============================================================================
-   1950s ADVERTISEMENT. Printed-page cream, two flat spot colours, heavy black
-   rules, a starburst doing the shouting. The period look is not decoration: a
-   mid-century advert has exactly ONE job on the page and says it enormously,
-   which is the same job this page has - get the free app downloaded.
+   A 1955 PRESS ADVERT.
 
-   ⛔ ONE SCREEN, NO SCROLLBAR. html and body are height-locked with overflow
-   hidden, and every vertical measure is in vh, so the layout COMPRESSES rather
-   than growing a scrollbar. Anything that will not fit is cut, not shrunk.
+   What makes it period rather than "modern page, warm palette" - the mistake
+   the previous version made and which no amount of repositioning fixed:
 
-   ⛔ CHATTY IS CREAM AND SO IS THE PAPER. On a bare cream ground he disappears,
-   so he stands on a flat teal roundel - which is also the period-correct device
-   for putting a mascot on a page.
+   1. THE PAGE IS FULL. Mid-century ads are dense and edge to edge. Empty
+      margin reads as contemporary web design, so this is COLOUR BLOCKED: a
+      teal field holding the mascot, cream stock for the copy, a black banner
+      over the top, a coupon at the foot.
+   2. LETTERING DOES THE WORK. Slab caps with a two-colour drop shadow, brush
+      script for the asides. Not one weight of one sans.
+   3. PERIOD FURNITURE. Ribbon, starburst flash, dashed coupon, pointing hand.
+      That vocabulary IS the style; without it it is just a poster.
 
-   ⛔ NO MENTION OF RAINMETER. This is a Windows application. The skin is a
-   different product with a different audience, and naming it here asks a
-   first-time visitor to understand our product line before they can download
-   anything.
+   ⛔ ONE SCREEN, NO SCROLLBAR. html/body are height-locked with overflow
+   hidden and every vertical measure is vh-based, so the layout compresses
+   rather than growing a scrollbar.
+
+   ⛔ THE MASCOT MUST BE THE NON-REFLECTED POSE. hero-chatty.png has a faded
+   mirror baked in, and those semi-transparent pixels let whatever sits behind
+   show straight THROUGH his body.
    ============================================================================ */
 :root {
-  --paper:  #f7e7c3;   /* aged newsprint cream */
-  --ink:    #1c1a17;
-  --teal:   #0f9b9f;   /* a spot colour a 1950s press could actually hold */
-  --tomato: #e03127;
-  --gold:   #ffc93c;
+  --paper:  #f6e9c9;
+  --ink:    #17130f;
+  --teal:   #0b8f93;
+  --deep:   #076d70;
+  --tomato: #d9331f;
+  --gold:   #ffc42e;
+  --cream:  #fff8e6;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 body {
   background: var(--paper);
   color: var(--ink);
-  font: 16px/1.5 "Futura", "Century Gothic", "Trebuchet MS", Verdana, sans-serif;
+  font-family: "Roboto Condensed", "Arial Narrow", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-
-/* Halftone dots - the cheapest honest signal of a printed page. */
-body::before {
-  content: "";
-  position: fixed; inset: 0;
-  background-image: radial-gradient(var(--ink) 0.8px, transparent 0.9px);
-  background-size: 5px 5px;
-  opacity: .05;
-  pointer-events: none;
+body::after {                      /* newsprint halftone over everything */
+  content: ""; position: fixed; inset: 0; z-index: 9;
+  background-image: radial-gradient(var(--ink) .7px, transparent .8px);
+  background-size: 4px 4px; opacity: .07; pointer-events: none;
 }
 
-.sheet {
-  position: relative;
+.page {
   height: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 2.4vh 30px 1.6vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.top {
-  display: flex; align-items: center; gap: 14px;
-  border-bottom: 3px solid var(--ink);
-  padding-bottom: 8px;
-}
-.top .mark { width: 30px; height: 30px; border-radius: 6px; display: block; }
-.top b { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
-.top .rule { flex: 1; }
-.top .since { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .6; }
-
-.ad {
-  flex: 1 1 auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
-  gap: 34px;
-  align-items: center;
-  min-height: 0;              /* lets the grid shrink instead of overflowing */
+  grid-template-rows: auto 1fr auto;
+  border: .9vh solid var(--ink);
 }
 
-.art { position: relative; display: grid; place-items: center; min-height: 0; height: 100%; }
-.art::before {
-  content: "";
-  position: absolute;
-  width: min(54vh, 460px); aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--teal);
-  box-shadow: 0 0 0 8px var(--paper), 0 0 0 11px var(--ink);
-  transform: translate(2%, 3%);
+/* -- BANNER ---------------------------------------------------------------- */
+.banner {
+  background: var(--ink); color: var(--gold);
+  display: flex; align-items: center; justify-content: center; gap: 2vw;
+  padding: .5vh 2vw;
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: .35em; font-size: clamp(8px, 1.35vh, 13px);
 }
-.art img {
+.banner .dot { color: var(--tomato); }
+
+/* -- THE ADVERT ------------------------------------------------------------ */
+.ad { display: grid; grid-template-columns: 1.02fr 1.28fr; min-height: 0; position: relative; }
+
+.stage {
   position: relative;
-  height: min(60vh, 480px);
-  width: auto; max-width: 100%;
+  background:
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.05) 0 10px, transparent 10px 20px),
+    var(--teal);
+  border-right: .9vh solid var(--ink);
+  display: grid; place-items: end center;
+  min-height: 0; overflow: hidden;
+}
+.stage::before {                   /* concentric rings, the period backdrop */
+  content: ""; position: absolute; left: 50%; top: 46%;
+  width: 128%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0 27%, rgba(255,255,255,.10) 27% 28.6%,
+              transparent 28.6% 36%, rgba(255,255,255,.10) 36% 37.6%, transparent 37.6%);
+}
+.stage img {
+  position: relative; z-index: 2;
+  height: min(76%, 62vh); width: auto; max-width: 96%;
   display: block;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+  filter: drop-shadow(0 1.4vh 1.4vh rgba(0,0,0,.35));
+}
+.ribbon {
+  position: absolute; z-index: 3; left: -3%; right: -3%; bottom: 6%;
+  background: var(--tomato); color: #fff;
+  border-top: .55vh solid var(--ink); border-bottom: .55vh solid var(--ink);
+  transform: rotate(-3.5deg);
+  text-align: center;
+  font-family: "Bowlby One SC", "Archivo Black", sans-serif;
+  text-transform: uppercase; letter-spacing: .06em;
+  font-size: clamp(11px, 2.3vh, 24px);
+  padding: .5vh 0;
+  text-shadow: 2px 2px 0 rgba(0,0,0,.35);
 }
 
-.copy { min-width: 0; }
-.eyebrow {
-  display: inline-block;
-  background: var(--ink); color: var(--paper);
-  font-size: clamp(10px, 1.1vh, 12px); font-weight: 700;
-  letter-spacing: .22em; text-transform: uppercase;
-  padding: 4px 10px; margin: 0 0 1.3vh;
+.copy {
+  background: var(--cream);
+  padding: 2vh 2.4vw 1.6vh;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 0; min-width: 0;
+}
+.kicker {
+  font-family: "Kalam", cursive; font-weight: 700;
+  color: var(--tomato);
+  font-size: clamp(13px, 2.5vh, 27px);
+  transform: rotate(-2deg);
+  margin: 0 0 .2vh;
 }
 h1 {
   margin: 0;
-  font-size: clamp(30px, 7.4vh, 82px);
-  line-height: .82;
-  letter-spacing: -0.03em;
-  font-stretch: condensed;
-  text-shadow: 3px 3px 0 var(--gold);
+  font-family: "Alfa Slab One", Georgia, serif;
+  font-size: clamp(26px, 7.2vh, 72px);
+  line-height: .86;
   text-transform: uppercase;
-  font-weight: 800;
+  text-shadow: .32vh .32vh 0 var(--gold), .62vh .62vh 0 var(--tomato);
+  letter-spacing: -.01em;
 }
-h1 em {
-  display: block; font-style: italic; text-transform: none;
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 400; color: var(--tomato);
-  font-size: .44em; letter-spacing: 0; margin-top: .14em;
+.sub {
+  font-family: "Kalam", cursive; font-weight: 700;
+  font-size: clamp(12px, 2.15vh, 23px);
+  color: var(--deep);
+  margin: .7vh 0 0; transform: rotate(-1deg);
 }
-.pitch {
+
+.balloon {
   position: relative;
-  margin: 2vh 0 0;
-  font-size: clamp(13px, 1.85vh, 17px);
-  max-width: 30em;
-  background: #fff;
-  border: 3px solid var(--ink);
-  border-radius: 18px;
-  padding: 1em 1.15em;
-  box-shadow: 5px 5px 0 var(--ink);
+  background: #fff; border: .42vh solid var(--ink); border-radius: 1.6vh;
+  padding: 1.1vh 1.3vw; margin: 1.5vh 0 0;
+  font-size: clamp(11px, 1.72vh, 17px); line-height: 1.35;
+  box-shadow: .6vh .6vh 0 var(--ink);
+  max-width: 32em;
 }
-/* The tail, pointing back at the robot who is saying it. */
-.pitch::after {
-  content: "";
-  position: absolute; left: -22px; top: 30px;
-  border: 11px solid transparent;
-  border-right-color: var(--ink);
-}
-.pitch::before {
-  content: "";
-  position: absolute; left: -16px; top: 30px;
-  border: 11px solid transparent;
-  border-right-color: #fff;
-  z-index: 1;
-}
+.balloon::after, .balloon::before { content: ""; position: absolute; top: 2.2vh; border: 1.1vh solid transparent; }
+.balloon::after  { left: -2.2vh;  border-right-color: var(--ink); }
+.balloon::before { left: -1.55vh; border-right-color: #fff; z-index: 1; }
 
-ul.points { list-style: none; margin: 1.6vh 0 0; padding: 0; display: grid; gap: .85vh; }
-ul.points li { display: flex; align-items: baseline; gap: 10px; font-size: clamp(12px, 1.6vh, 15.5px); }
-ul.points .tick {
-  flex: 0 0 auto; width: 1.15em; height: 1.15em; border-radius: 50%;
-  background: var(--teal); color: var(--paper);
-  font-size: .72em; font-weight: 700;
-  display: grid; place-items: center; transform: translateY(.1em);
+ul { list-style: none; margin: 1.4vh 0 0; padding: 0; display: grid; gap: .55vh; }
+li { display: flex; gap: .7vw; align-items: baseline; font-size: clamp(10.5px, 1.62vh, 16px); }
+li .tick {
+  flex: 0 0 auto; width: 1.25em; height: 1.25em;
+  background: var(--teal); color: #fff; border: .18vh solid var(--ink);
+  border-radius: 50%; display: grid; place-items: center;
+  font-size: .74em; font-weight: 700; transform: translateY(.12em);
 }
-ul.points b { font-weight: 700; }
-ul.points a { color: var(--tomato); font-weight: 700; }
+li b { font-weight: 700; }
+li a { color: var(--tomato); font-weight: 700; }
 
-/* ⛔ ONE BUTTON. A second choice beside the download is a second decision, and
-   the only decision this page wants is "yes". */
-.cta { margin-top: 2.1vh; }
+/* -- THE COUPON ------------------------------------------------------------ */
+.coupon {
+  margin-top: 1.7vh;
+  border: .32vh dashed var(--ink);
+  padding: 1.1vh 1.2vw;
+  display: flex; align-items: center; gap: 1.2vw;
+  background: repeating-linear-gradient(90deg, transparent 0 12px, rgba(0,0,0,.02) 12px 24px);
+}
+.hand { font-size: clamp(16px, 3.2vh, 34px); transform: rotate(-8deg); }
 .btn {
   display: inline-block;
-  background: var(--tomato); color: #fff;
-  font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
-  font-size: clamp(15px, 2.35vh, 24px);
-  padding: .8em 1.6em;
-  border: 4px solid var(--ink);
-  box-shadow: 7px 7px 0 var(--ink);
-  text-decoration: none;
-  transition: transform .08s ease, box-shadow .08s ease;
+  background: var(--tomato); color: #fff; text-decoration: none;
+  font-family: "Bowlby One SC", "Archivo Black", sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(12px, 2.5vh, 27px);
+  padding: .55em 1em;
+  border: .42vh solid var(--ink);
+  box-shadow: .7vh .7vh 0 var(--ink);
+  transition: transform .07s ease, box-shadow .07s ease;
+  white-space: nowrap;
 }
-.btn:active { transform: translate(4px, 4px); box-shadow: 3px 3px 0 var(--ink); }
-.btn small { display: block; font-size: .48em; letter-spacing: .14em; opacity: .92; margin-top: .25em; }
+.btn:active { transform: translate(.35vh,.35vh); box-shadow: .35vh .35vh 0 var(--ink); }
+.coupon .terms { font-size: clamp(9px, 1.42vh, 13px); line-height: 1.3; }
+.coupon .terms b { color: var(--tomato); }
 
-.fineprint { margin-top: 1.2vh; font-size: clamp(10px, 1.35vh, 13px); opacity: .8; max-width: 36em; }
-.soon { margin-top: .5vh; font-size: clamp(10px, 1.3vh, 12.5px); letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
-
-.burst {
-  position: absolute; right: 1%; top: 3%;
-  width: min(14vh, 124px); aspect-ratio: 1;
-  background: var(--gold);
+.flash {
+  position: absolute; z-index: 6; left: calc(45% - 7.5vh); top: 4%;
+  width: min(16vh, 150px); aspect-ratio: 1;
+  background: var(--gold); color: var(--ink);
   clip-path: polygon(50% 0%,60% 18%,78% 8%,79% 29%,98% 27%,88% 45%,100% 58%,81% 63%,86% 83%,66% 78%,60% 97%,47% 82%,32% 95%,29% 75%,10% 78%,17% 60%,0% 50%,18% 39%,7% 22%,27% 22%,26% 3%,43% 14%);
   display: grid; place-items: center; text-align: center;
-  transform: rotate(-12deg);
+  transform: rotate(-14deg);
+  font-family: "Bowlby One SC", "Archivo Black", sans-serif;
 }
-.burst span { font-weight: 800; text-transform: uppercase; line-height: 1; font-size: clamp(11px, 1.85vh, 18px); }
-.burst small { display: block; font-size: .52em; letter-spacing: .1em; margin-top: .25em; font-weight: 700; }
+.flash i { font-style: normal; font-size: clamp(13px, 2.9vh, 30px); line-height: .9; display: block; }
+.flash small { display: block; font-size: clamp(7px, 1.15vh, 11px); letter-spacing: .16em; margin-top: .3vh; }
 
-footer {
-  border-top: 3px solid var(--ink);
-  padding-top: 8px;
-  display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: center;
-  font-size: clamp(10px, 1.3vh, 12.5px);
-  text-transform: uppercase; letter-spacing: .08em;
+.foot {
+  background: var(--ink); color: var(--paper);
+  display: flex; align-items: center; gap: 1.6vw;
+  padding: .55vh 2vw;
+  font-size: clamp(8px, 1.32vh, 12px);
+  text-transform: uppercase; letter-spacing: .18em;
 }
-footer a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--tomato); }
-footer .end { margin-left: auto; opacity: .6; }
+.foot a { color: var(--gold); text-decoration: none; }
+.foot .end { margin-left: auto; opacity: .55; }
 
-@media (max-width: 860px) {
-  .ad { grid-template-columns: 1fr; gap: 1vh; text-align: center; }
-  .art { order: -1; }
-  .art img { height: 25vh; }
-  .art::before { width: 20vh; }
-  .burst { width: 11vh; right: 0; top: 0; }
-  ul.points { max-width: 30em; margin-left: auto; margin-right: auto; text-align: left; }
-  footer { justify-content: center; }
-  .pitch, .fineprint { margin-left: auto; margin-right: auto; }
+@media (max-width: 900px) {
+  .ad { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+  .stage { border-right: 0; border-bottom: .9vh solid var(--ink); }
+  .stage img { height: 88%; }
+  .flash { left: auto; right: 3%; top: 2%; width: 12vh; }
+  .coupon { flex-wrap: wrap; }
+  .hand { display: none; }
 }
 </style>
 
-<main class="sheet">
+<div class="page">
 
-  <div class="top">
-    <img class="mark" src="assets/favicon-32.png" alt="">
-    <b>Chatterbot&nbsp;2000</b>
-    <span class="rule"></span>
-    <span class="since">A friendly desktop assistant</span>
+  <div class="banner">
+    <span>Now available</span><span class="dot">★</span>
+    <span>For your Windows desktop</span><span class="dot">★</span>
+    <span>No account required</span>
   </div>
 
-  <section class="ad">
+  <div class="ad">
 
-    <div class="art">
-      <!-- ⛔ THE PLAIN POSE, NOT hero-chatty.png. That one has a faded reflection
-             baked in, and its semi-transparent pixels let the teal roundel show
-             straight through his body. -->
+    <div class="stage">
+      <!-- ⛔ chatty-solid.png, NOT hero-chatty.png - the latter has a faded
+           reflection baked in whose semi-transparent pixels let the teal field
+           show straight through his body. -->
       <img src="assets/chatty-solid.png" width="290" height="317"
            alt="Chatty, a small cream-coloured robot with a glowing smile, pointing to the right.">
+      <div class="ribbon">Meet Chatty!</div>
     </div>
 
     <div class="copy">
-      <p class="eyebrow">Introducing</p>
-      <h1>Chatterbot&nbsp;2000<em>the friendly little robot for your desktop</em></h1>
+      <p class="kicker">Introducing&hellip;</p>
+      <h1>Chatterbot 2000</h1>
+      <p class="sub">the friendly little robot for your desktop!</p>
 
-      <p class="pitch">
-        He sits in the corner of your screen and answers when you ask. No browser tab,
-        no sign-up, no subscription — just Chatty, right where you are working.
-      </p>
+      <div class="balloon">
+        &ldquo;I sit right in the corner of your screen and answer when you ask.
+        No browser tab. No sign-up. No subscription &mdash; just me, right where
+        you&rsquo;re working!&rdquo;
+      </div>
 
-      <ul class="points">
-        <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial, no account, no upsell.</span></li>
-        <li><span class="tick">✓</span><span><b>Bring your own API key.</b> Your provider, your account — we never see a word of it.</span></li>
-        <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b> Nothing else to install.</span></li>
-        <li><span class="tick">✓</span><span><b>Includes EXCLUSIVE access to the Vocational CODE·A.I. Academy!</b>
+      <ul>
+        <li><span class="tick">&#10003;</span><span><b>FREE &mdash; and actually free.</b> No trial, no account, no upsell.</span></li>
+        <li><span class="tick">&#10003;</span><span><b>Bring your own API key.</b> Your provider, your account &mdash; we never see a word of it.</span></li>
+        <li><span class="tick">&#10003;</span><span><b>One file. Double-click. Done.</b> Nothing else to install.</span></li>
+        <li><span class="tick">&#10003;</span><span><b>Includes EXCLUSIVE access to the Vocational CODE&middot;A.I. Academy!</b>
           <a href="https://deliberon.com/code-ai">Click HERE to learn more</a>.</span></li>
       </ul>
 
-      <div class="cta">
-        <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">
-          Download Free for Windows<small>No account · No subscription</small>
-        </a>
+      <div class="coupon">
+        <span class="hand">&#9758;</span>
+        <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">Download Free</a>
+        <span class="terms">
+          <b>No account &middot; No subscription.</b><br>
+          Use your own key from OpenAI, Anthropic or DeepSeek &mdash; or run a local model and pay nothing at all.
+        </span>
       </div>
-      <p class="fineprint">
-        You supply an API key from OpenAI, Anthropic or DeepSeek — or run a local model and pay nothing at all.
-      </p>
-      <p class="soon">macOS · Linux · Android coming soon</p>
     </div>
 
-    <div class="burst"><span>Free!<small>Forever</small></span></div>
-  </section>
+    <div class="flash"><span><i>FREE!</i><small>Forever</small></span></div>
+  </div>
 
-  <footer>
+  <div class="foot">
     <span>Chatterbot&nbsp;2000</span>
-    <a href="https://deliberon.com/code-ai">CODE·A.I. specialists</a>
-    <span class="end">© 2026</span>
-  </footer>
-</main>
+    <a href="https://deliberon.com/code-ai">CODE&middot;A.I. Academy</a>
+    <span>macOS &middot; Linux &middot; Android coming soon</span>
+    <span class="end">&copy; 2026</span>
+  </div>
+</div>
