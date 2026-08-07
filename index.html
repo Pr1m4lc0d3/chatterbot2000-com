@@ -38,11 +38,11 @@
    anything.
    ============================================================================ */
 :root {
-  --paper:  #f4ead5;   /* aged newsprint cream */
+  --paper:  #f7e7c3;   /* aged newsprint cream */
   --ink:    #1c1a17;
-  --teal:   #1f8a8c;   /* a spot colour a 1950s press could actually hold */
-  --tomato: #d8452f;
-  --gold:   #f0b429;
+  --teal:   #0f9b9f;   /* a spot colour a 1950s press could actually hold */
+  --tomato: #e03127;
+  --gold:   #ffc93c;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
@@ -96,15 +96,15 @@ body::before {
 .art::before {
   content: "";
   position: absolute;
-  width: min(30vh, 268px); aspect-ratio: 1;
+  width: min(46vh, 400px); aspect-ratio: 1;
   border-radius: 50%;
   background: var(--teal);
   box-shadow: 0 0 0 8px var(--paper), 0 0 0 11px var(--ink);
-  transform: translateY(9%);
+  transform: translateY(4%);
 }
 .art img {
   position: relative;
-  height: min(56vh, 470px);
+  height: min(68vh, 560px);
   width: auto; max-width: 100%;
   display: block;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
@@ -120,9 +120,11 @@ body::before {
 }
 h1 {
   margin: 0;
-  font-size: clamp(28px, 5.8vh, 64px);
-  line-height: .92;
-  letter-spacing: -0.015em;
+  font-size: clamp(30px, 7.4vh, 82px);
+  line-height: .82;
+  letter-spacing: -0.03em;
+  font-stretch: condensed;
+  text-shadow: 3px 3px 0 var(--gold);
   text-transform: uppercase;
   font-weight: 800;
 }
@@ -132,7 +134,31 @@ h1 em {
   font-weight: 400; color: var(--tomato);
   font-size: .44em; letter-spacing: 0; margin-top: .14em;
 }
-.pitch { margin: 1.5vh 0 0; font-size: clamp(13px, 1.8vh, 17px); max-width: 34em; }
+.pitch {
+  position: relative;
+  margin: 2vh 0 0;
+  font-size: clamp(13px, 1.85vh, 17px);
+  max-width: 30em;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  padding: 1em 1.15em;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+/* The tail, pointing back at the robot who is saying it. */
+.pitch::after {
+  content: "";
+  position: absolute; left: -22px; top: 30px;
+  border: 11px solid transparent;
+  border-right-color: var(--ink);
+}
+.pitch::before {
+  content: "";
+  position: absolute; left: -16px; top: 30px;
+  border: 11px solid transparent;
+  border-right-color: #fff;
+  z-index: 1;
+}
 
 ul.points { list-style: none; margin: 1.6vh 0 0; padding: 0; display: grid; gap: .85vh; }
 ul.points li { display: flex; align-items: baseline; gap: 10px; font-size: clamp(12px, 1.6vh, 15.5px); }
