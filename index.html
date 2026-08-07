@@ -96,15 +96,15 @@ body::before {
 .art::before {
   content: "";
   position: absolute;
-  width: min(46vh, 400px); aspect-ratio: 1;
+  width: min(54vh, 460px); aspect-ratio: 1;
   border-radius: 50%;
   background: var(--teal);
   box-shadow: 0 0 0 8px var(--paper), 0 0 0 11px var(--ink);
-  transform: translateY(4%);
+  transform: translate(2%, 3%);
 }
 .art img {
   position: relative;
-  height: min(68vh, 560px);
+  height: min(60vh, 480px);
   width: auto; max-width: 100%;
   display: block;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
@@ -236,8 +236,10 @@ footer .end { margin-left: auto; opacity: .6; }
   <section class="ad">
 
     <div class="art">
-      <!-- Reflection is baked into the PNG; see Assets\tools\build-hero.ps1. -->
-      <img src="assets/hero-chatty.png" width="580" height="743"
+      <!-- ⛔ THE PLAIN POSE, NOT hero-chatty.png. That one has a faded reflection
+             baked in, and its semi-transparent pixels let the teal roundel show
+             straight through his body. -->
+      <img src="assets/chatty-solid.png" width="290" height="317"
            alt="Chatty, a small cream-coloured robot with a glowing smile, pointing to the right.">
     </div>
 
@@ -254,8 +256,8 @@ footer .end { margin-left: auto; opacity: .6; }
         <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial, no account, no upsell.</span></li>
         <li><span class="tick">✓</span><span><b>Bring your own API key.</b> Your provider, your account — we never see a word of it.</span></li>
         <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b> Nothing else to install.</span></li>
-        <li><span class="tick">✓</span><span><b>Includes CODE·A.I. agents.</b> Forty vocational specialists, inside the app —
-          <a href="https://deliberon.com/code-ai">see what they are</a>.</span></li>
+        <li><span class="tick">✓</span><span><b>Includes EXCLUSIVE access to the Vocational CODE·A.I. Academy!</b>
+          <a href="https://deliberon.com/code-ai">Click HERE to learn more</a>.</span></li>
       </ul>
 
       <div class="cta">
