@@ -207,7 +207,11 @@ body::before {
      nothing in normal flow knows it is there. */
   /* ⛔ RESERVES THE WIDGET'S LANE. The widget is absolutely positioned, so
      nothing in normal flow knows it is there and the text runs under it. */
-  min-width: 0; padding-left: 1.5vw; padding-right: min(17vh, 185px);
+  /* ⛔ MUST COVER THE WIDGET'S WIDEST PART, WHICH IS THE CAPTION, NOT THE PANEL.
+     The old reserve was sized to the panel alone and fell ~50px short, so the
+     claims ran under "Real answers - Real sources". Matches .rig's width plus
+     its right offset now. */
+  min-width: 0; padding-left: 1.5vw; padding-right: calc(min(19vh, 200px) + 5%);
   /* ⛔ NO height:100%, NO justify-content. This block is corner-anchored now;
      giving it the full height and centring inside it is exactly the
      redistribution that kept dragging the balloon around. */
@@ -269,7 +273,9 @@ h1 em {
   z-index: 1;
 }
 
-ul.points { list-style: none; margin: 4vh 0 0; padding: 0; display: grid; gap: 1.05vh; }
+/* Dropped a row clear of the widget's caption, which sits lower than the panel
+   itself and is what the claims were colliding with. */
+ul.points { list-style: none; margin: 6.5vh 0 0; padding: 0; display: grid; gap: 1.3vh; }
 ul.points li { display: flex; align-items: baseline; gap: 10px; font-size: clamp(12px, 1.6vh, 15.5px); }
 ul.points .tick {
   flex: 0 0 auto; width: 1.15em; height: 1.15em; border-radius: 50%;
@@ -286,6 +292,14 @@ ul.points .tick-paid {
   box-shadow: inset 0 0 0 2px var(--tomato);
   font-size: .8em;
 }
+/* Not-yet-shipped: hollow, ink rather than teal, so it never reads as one of
+   the things you get when you download today. */
+ul.points .tick-soon {
+  background: transparent; color: var(--ink);
+  box-shadow: inset 0 0 0 2px var(--ink);
+  opacity: .55; font-size: .8em;
+}
+ul.points li:last-child { opacity: .72; }
 ul.points b { font-weight: 700; }
 ul.points a { color: var(--tomato); font-weight: 700; }
 
@@ -487,9 +501,19 @@ footer .end { margin-left: auto; opacity: .6; }
              out here costs one click of interest and buys the only thing that
              actually converts later, which is being believed. The paid line
              deliberately does NOT get a ✓ - it is not part of what is free. -->
-        <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial, no account, no time limit.</span></li>
-        <li><span class="tick">✓</span><span><b>Bring your own API key.</b> Your provider, your account — we never see a word of it.</span></li>
-        <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b> Nothing else to install.</span></li>
+        <!-- ⛔ ONE LINE EACH. These sit beside the standing widget; a claim that
+             wraps runs into its caption, and a wrapped bullet reads as a
+             paragraph rather than as a claim. Keep them short enough to hold one
+             line and the collision cannot come back. -->
+        <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial. No account.</span></li>
+        <li><span class="tick">✓</span><span><b>Bring your own API key.</b> We never see it.</span></li>
+        <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b></span></li>
+        <li><span class="tick">✓</span><span><b>Drop in images and files.</b> Chatty reads them.</span></li>
+        <!-- ⛔ NOT A ✓. The vault and voice-to-text are being built right now, and
+             a shipped-features tick on unshipped work is the same lie the
+             Academy bullet was telling. It gets its own marker and the word
+             "Coming", so it can go live the day they do without a rewrite. -->
+        <li><span class="tick tick-soon">→</span><span><b>Coming:</b> private vault &amp; memory, and voice-to-text.</span></li>
       </ul>
     </div>
 
