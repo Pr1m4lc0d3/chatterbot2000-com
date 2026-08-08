@@ -87,8 +87,26 @@ body::before {
 .top .rule { flex: 1; }
 .top .since { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .6; }
 
-.ad {
-  flex: 1 1 auto;
+/* ==== THE AD IS A POSTER, NOT A DOCUMENT ================================
+   ⛔ NO FLEX, NO GRID, NO auto MARGINS in here. Every previous pass used one,
+   and a flex/grid container REDISTRIBUTES free space on every edit - so each
+   fix nudged everything back toward the middle and the corners drifted in.
+   Four things are anchored to four corners and they stay there:
+
+        burst TL        masthead        rig TR
+                       balloon + claims (right)
+        CHATTY BL      agents BC        download BR
+
+   Change a size here and only that element moves. That is the point. */
+.ad { position: relative; flex: 1 1 auto; min-height: 0; display: block; }
+
+.art  { position: absolute; left: -2%;  bottom: 0; width: 36%; display: grid; place-items: center; }
+.copy { position: absolute; right: 0;   top: 0;    width: 55%; height: auto; display: block; }
+/* Dead centre of the sheet, independent of how wide its neighbours are. */
+.upsell { position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: 30%; }
+.cta    { position: absolute; right: 0;  bottom: 0; width: 36%; }
+
+.ad-unused {
   display: grid;
   /* ⛔ CHATTY IS WIDTH-BOUND, NOT HEIGHT-BOUND. His height clamp never binds -
      the column width decides how big he gets - so a narrow left column left a
@@ -154,14 +172,12 @@ body::before {
   text-align: center; opacity: .62;
 }
 
-.art { position: relative; display: grid; place-items: center; min-height: 0; height: 100%; }
 .art::before {
   content: "";
   position: absolute;
-  /* ⛔ MUST TRACK .art img's HEIGHT (~0.9 of it) or he bursts out of his own
-     roundel. Capped in % as well, because his height can be cut by the row
-     clamp on a short window while a pure-vh circle would keep its size. */
-  width: min(48vh, 560px); max-width: 96%; aspect-ratio: 1;
+  /* ⛔ SIZED FROM .art, NOT FROM vh. Two independent size sources is how he kept
+     bursting out of his own roundel - one would clamp and the other would not. */
+  width: 90%; aspect-ratio: 1;
   border-radius: 50%;
   background: var(--teal);
   box-shadow: 0 0 0 8px var(--paper), 0 0 0 11px var(--ink);
@@ -170,13 +186,9 @@ body::before {
 .art img {
   position: relative;
   transform: translate(14%, -4%);
-  /* ⛔ max-height:100% IS THE LOAD-BEARING ONE. Sized by vh alone he is taller
-     than his own grid row on a short, wide window, and the overflow lands on
-     top of the band below - which is what put "Need an expert?" behind his
-     shoulder. This clamps him to the row no matter the window shape. */
-  height: min(54vh, 620px);
-  max-height: 100%;
-  width: auto; max-width: 100%;
+  /* ⛔ ONE SIZE SOURCE: his box. .art owns the width, he fills it, the roundel
+     is a fixed fraction of the same box. Nothing here can disagree. */
+  width: 100%; height: auto; max-width: none;
   display: block;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
 }
@@ -191,12 +203,13 @@ body::before {
   /* ⛔ RESERVES THE WIDGET'S LANE. Without it the balloon and the claims run
      straight under the standing panel - the widget is absolutely positioned, so
      nothing in normal flow knows it is there. */
+  /* ⛔ RESERVES THE WIDGET'S LANE. The widget is absolutely positioned, so
+     nothing in normal flow knows it is there and the text runs under it. */
   min-width: 0; padding-left: 1.5vw; padding-right: min(17vh, 185px);
-  height: 100%; min-height: 0;
-  /* ⛔ CENTRED, NOT top-aligned. The ask has moved out to .band, so the auto
-     margin that used to balance this column has no partner left - top-aligning
-     now drops the balloon to the floor and Chatty points at nothing. */
-  display: flex; flex-direction: column; justify-content: center;
+  /* ⛔ NO height:100%, NO justify-content. This block is corner-anchored now;
+     giving it the full height and centring inside it is exactly the
+     redistribution that kept dragging the balloon around. */
+  padding-top: 3vh;
 }
 
 /* Centred masthead across the full sheet. */
@@ -287,12 +300,7 @@ ul.points a { color: var(--tomato); font-weight: 700; }
    space-between the upsell drifted under Chatty's feet and the two halves read
    as two unrelated things at opposite ends of the page. Held together and
    centred, they read as one closing statement. */
-.band {
-  display: flex; align-items: center; gap: 40px;
-  justify-content: center;
-  padding-top: 1.2vh;
-}
-.upsell { flex: 0 1 auto; min-width: 0; max-width: 26em; text-align: center; }
+.upsell { min-width: 0; text-align: center; }
 .upsell h3 {
   margin: 0 0 .5vh;
   font-size: clamp(12px, 1.6vh, 16px);
@@ -336,9 +344,12 @@ ul.points a { color: var(--tomato); font-weight: 700; }
 .agent .price { display: block; font-size: clamp(8px, 1.05vh, 10px); opacity: .6; }
 .carousel.swap .agent { opacity: 0; }
 
-.cta { text-align: right; flex: 0 0 auto; }
+.cta { text-align: right; }
 .tail { text-align: right; }
 .btn {
+  /* ⛔ ONE LINE, ALWAYS. Broken across two it stops reading as a button and
+     starts reading as a headline in a red box. */
+  white-space: nowrap;
   display: inline-block;
   background: var(--tomato); color: #fff;
   font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
@@ -394,9 +405,17 @@ footer .end { margin-left: auto; opacity: .6; }
      top of the masthead, and the reflection alone costs more height than the
      headline. The page still says everything without it. */
   .rig { display: none; }
-  .band { flex-direction: column; align-items: stretch; gap: 1.4vh; }
-  .cta { text-align: center; }
-  .upsell { max-width: none; }
+  /* ⛔ THE CORNER ANCHORS MUST UNWIND HERE. Four absolute boxes have no shared
+     height, so on a narrow screen they stack on top of each other. Back to
+     ordinary flow, where the page simply gets taller. */
+  .ad { display: block; }
+  .art, .copy, .upsell, .cta {
+    position: static; transform: none;
+    width: auto; left: auto; right: auto; bottom: auto; top: auto;
+  }
+  .art { max-width: 62vw; margin: 0 auto; }
+  .copy { padding-right: 1.5vw; padding-top: 1vh; }
+  .cta, .upsell { text-align: center; margin-top: 1.6vh; }
 }
 </style>
 
@@ -472,14 +491,9 @@ footer .end { margin-left: auto; opacity: .6; }
       </ul>
     </div>
 
-  </section>
-
-  <!-- ==== The band: what costs money on the left, what does not on the right ==
-       The upgrade is OUT of the free list on purpose. As a fourth bullet it wore
-       the same badge as the free features and read as included; sitting here
-       beside its own price it reads as what it is. -->
-  <section class="band">
-
+    <!-- ⛔ THESE LIVE INSIDE .ad. As a sibling section they anchored against the
+         sheet instead of the ad area, which is how the bottom row kept sliding
+         out from under the corners it was supposed to hold. -->
     <div class="upsell">
       <h3><span class="plus">+</span>Need an expert? Hire one for $3.99.</h3>
       <div class="carousel" id="carousel"></div>
@@ -505,6 +519,7 @@ footer .end { margin-left: auto; opacity: .6; }
     </div>
 
   </section>
+
 
   <script>
   // ==== The specialist carousel ===========================================
