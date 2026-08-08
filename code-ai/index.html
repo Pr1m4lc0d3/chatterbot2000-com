@@ -1,0 +1,302 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CODE·A.I. specialists — Chatterbot 2000</title>
+<meta name="description" content="Hire a vocational specialist into Chatterbot 2000. One trade, one voice, its own library. $9.99 a month, cancel any time.">
+
+<link rel="icon" href="../assets/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/icon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="../assets/icon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chatterbot2000.com/code-ai">
+<meta property="og:title" content="CODE·A.I. specialists — Chatterbot 2000">
+<meta property="og:description" content="One trade, one voice, its own library. $9.99 a month inside the free app.">
+<!-- ⛔ PNG, never .webp - several scrapers silently drop a webp og:image.
+     Reuses the app card until this page earns one of its own; a versioned
+     filename is what stops the scrapers serving a stale picture. -->
+<meta property="og:image" content="https://chatterbot2000.com/assets/og-v5.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+/* ============================================================================
+   THE SAME 1950s PRESS AS THE FRONT PAGE - same paper, same two spot colours,
+   same heavy rules - because this is the second page of one advertisement, not
+   a different publication.
+
+   ⛔ THIS PAGE IS ALLOWED TO SCROLL AND THE FRONT PAGE IS NOT, and that is a
+   deliberate difference rather than an oversight. The front page has ONE job
+   (get the free app downloaded) and height-locks itself so nothing can push the
+   button off the screen. This page carries the terms, the scope limits and the
+   refund promise - text a buyer is entitled to READ. Height-locking it would
+   silently CUT the small print on a short window, and a promise that is only
+   visible at 1080p is not a promise. It is laid out to fit one screen at any
+   ordinary desktop height; below that it scrolls rather than hides.
+
+   ⛔ NO ROSTER HERE. The forty are met inside the app, where a buyer can see a
+   face, read the pitch and press one button - and the whole gallery lives on
+   Deliberon's symbiosis map, which is a better exhibit than a list of names.
+   Printing forty names on this page would duplicate both and sell neither.
+   ============================================================================ */
+:root {
+  --paper:  #f7e7c3;
+  --ink:    #1c1a17;
+  --teal:   #0f9b9f;
+  --tomato: #e03127;
+  --gold:   #ffc93c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.5 "Futura", "Century Gothic", "Trebuchet MS", Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: radial-gradient(var(--ink) 0.8px, transparent 0.9px);
+  background-size: 5px 5px;
+  opacity: .05;
+  pointer-events: none;
+}
+
+.sheet { max-width: 1180px; margin: 0 auto; padding: 20px 30px 26px; }
+
+.top {
+  display: flex; align-items: center; gap: 14px;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 8px;
+}
+.top .mark { width: 30px; height: 30px; border-radius: 6px; display: block; }
+.top b { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+.top a { color: inherit; text-decoration: none; }
+.top .rule { flex: 1; }
+.top .since { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .6; }
+
+.masthead { text-align: center; margin: 22px 0 0; }
+.eyebrow {
+  display: inline-block;
+  background: var(--ink); color: var(--paper);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  padding: 4px 10px; margin: 0 0 12px;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(32px, 6.4vw, 66px);
+  line-height: .86;
+  letter-spacing: -0.03em;
+  text-shadow: 3px 3px 0 var(--gold);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+h1 em {
+  display: block; font-style: italic; text-transform: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400; color: var(--tomato);
+  font-size: .40em; letter-spacing: 0; margin-top: .18em;
+}
+
+/* Three columns of ad copy, the period way to say three things at once. */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin: 26px 0 0;
+  padding: 18px 0 0;
+  border-top: 3px solid var(--ink);
+}
+.col h2 {
+  margin: 0 0 8px;
+  font-size: 15px; letter-spacing: .14em; text-transform: uppercase;
+}
+.col h2 .n {
+  display: inline-block; margin-right: 8px;
+  background: var(--teal); color: var(--paper);
+  width: 20px; height: 20px; line-height: 20px;
+  text-align: center; border-radius: 50%; font-size: 12px;
+}
+.col p { margin: 0 0 9px; font-size: 14.5px; }
+.col b { font-weight: 700; }
+
+/* The price band - the one loud object on the page, as the burst is on page 1. */
+.band {
+  margin: 26px 0 0;
+  border: 3px solid var(--ink);
+  background: var(--ink); color: var(--paper);
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+}
+.band .price { font-size: 30px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+.band .price span { font-size: 15px; font-weight: 400; opacity: .85; }
+.band ul { margin: 0; padding: 0; list-style: none; flex: 1 1 340px; }
+.band li { font-size: 13.5px; line-height: 1.7; }
+.band li::before { content: "✓"; color: var(--gold); font-weight: 700; margin-right: 8px; }
+
+.asks { display: flex; gap: 14px; flex-wrap: wrap; margin: 18px 0 0; }
+.btn {
+  display: inline-block; text-decoration: none;
+  background: var(--tomato); color: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 12px 22px;
+  font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: 15px;
+}
+.btn.ghost { background: var(--paper); color: var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--ink); }
+
+/* ⛔ SMALL PRINT, NOT HIDDEN PRINT. A 1950s advert put its conditions at the
+   foot in smaller type - which is honest as long as it is legible and complete.
+   It is 12px, full contrast, and says the awkward parts out loud. */
+.fine {
+  margin: 22px 0 0;
+  border-top: 3px solid var(--ink);
+  padding-top: 12px;
+  font-size: 12px; line-height: 1.65;
+  columns: 2; column-gap: 30px;
+}
+.fine h3 {
+  margin: 0 0 5px;
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+}
+.fine p { margin: 0 0 11px; break-inside: avoid; }
+.fine a { color: var(--ink); }
+
+.foot {
+  margin: 16px 0 0; border-top: 1px solid rgba(28,26,23,.35); padding-top: 10px;
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .7;
+}
+.foot a { color: inherit; }
+
+@media (max-width: 860px) {
+  .cols { grid-template-columns: 1fr; gap: 18px; }
+  .fine { columns: 1; }
+}
+</style>
+
+<div class="sheet">
+
+  <div class="top">
+    <img class="mark" src="../assets/icon-192.png" alt="">
+    <b><a href="/">Chatterbot 2000</a></b>
+    <span class="rule"></span>
+    <span class="since">CODE·A.I. specialists</span>
+  </div>
+
+  <div class="masthead">
+    <span class="eyebrow">Inside the free app</span>
+    <h1>Hire a specialist
+      <em>one trade, one voice, its own library</em>
+    </h1>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h2><span class="n">1</span>What it is</h2>
+      <p>Chatty is a generalist. A <b>CODE·A.I. specialist</b> replaces him with
+         a single vocation — its own face, its own voice, its own way of
+         thinking about one trade.</p>
+      <p>It is not a prompt with a costume on. Each one is built from a
+         vocational kernel and a layered character, and it answers <b>out of a
+         curated library</b> rather than from whatever it half-remembers.</p>
+      <p>It advises. It reads the situation, tells you what it would check
+         first, and says plainly when the honest answer is <b>go and see a
+         professional</b>.</p>
+    </div>
+
+    <div class="col">
+      <h2><span class="n">2</span>How you meet them</h2>
+      <p>Inside the app, which is the only place you need to look. Open
+         Chatterbot, click the <b>gear</b>, click <b>AGENT</b>, and walk the
+         roster — a face, what it does, and one button.</p>
+      <p>Buy the one you want and it unlocks <b>in place</b>. No account, no
+         sign-up, nothing to copy or paste; the app collects the key itself and
+         the button becomes <b>Load</b>.</p>
+      <p>Keep as many as you like. Switch between them whenever you want, one at
+         a time on your desktop.</p>
+    </div>
+
+    <div class="col">
+      <h2><span class="n">3</span>Where it goes bigger</h2>
+      <p>A specialist here <b>advises you</b>. The same characters live in
+         <b>Deliberon</b>, where they stop being one voice on a desktop and
+         become a <b>council that argues, votes and uses tools to do the
+         work</b>.</p>
+      <p>That is the mothership. If you want to see all forty at once and how
+         they fit together, the <b>symbiosis map</b> over there is the exhibit —
+         this page will not try to reprint it.</p>
+      <p><a href="https://deliberon.com/code-ai">See the forty on Deliberon →</a></p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="price">$9.99 <span>a month, per specialist</span></div>
+    <ul>
+      <li>Cancel any time — and you keep the month you have paid for</li>
+      <li>14-day refund on your first payment, no questions</li>
+      <li>Your own API key: we never see it, and never see what you ask</li>
+    </ul>
+  </div>
+
+  <div class="asks">
+    <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">Get Chatterbot free</a>
+    <a class="btn ghost" href="https://deliberon.com/code-ai">See the forty on Deliberon</a>
+  </div>
+
+  <div class="fine">
+    <h3>What a specialist is, and is not</h3>
+    <p><b>Every CODE·A.I. specialist is advisory.</b> It is a piece of software
+      with a character, not a licensed practitioner, and it holds no
+      qualification of any kind. Nothing it says is medical, veterinary, legal,
+      financial, tax or mental-health advice, and no conversation with it
+      creates a professional relationship. Names like Healer, Dietician,
+      Veterinarian, Counselor, Jurist or Accountant describe the <b>trade a
+      character speaks about</b> — they do not claim licensure in it. Decisions
+      with real consequences deserve a real professional, and a good specialist
+      will tell you so itself.</p>
+    <p><b>In an emergency, contact your local emergency services.</b> This
+      software is not a crisis service and cannot summon help.</p>
+
+    <h3>What you pay, and what you pay separately</h3>
+    <p>Chatterbot 2000 is free. A specialist is <b>$9.99 per month, per
+      specialist</b>, billed automatically until you cancel. <b>The model is
+      not included</b>: you bring your own API key from a provider such as
+      OpenAI, Anthropic or DeepSeek and pay them directly for what you use, or
+      point the app at a local model and pay nobody. We never see that key.</p>
+    <p><b>Lemon Squeezy</b> is the merchant of record for every purchase. They
+      take the payment, handle sales tax, and are where a subscription is
+      cancelled — the receipt email carries the link.</p>
+
+    <h3>Refunds and cancelling</h3>
+    <p>Not happy, for any reason? Email within <b>14 days of your first
+      payment</b> and you get your money back — no questions and no form. After
+      that, cancel any time and <b>keep the month you have paid for</b>.
+      Renewals after the first fourteen days are not refunded.</p>
+    <p>A cancellation <b>revokes nothing</b>. Your key keeps working until the
+      date you have paid through, and when that date passes the specialist
+      stops and Chatty comes back. Nothing else in the app changes and nothing
+      of yours is deleted.</p>
+
+    <h3>Your data</h3>
+    <p>There is no account and no sign-up. Your conversations, your files and
+      your vault stay <b>on your machine</b>; what you ask goes to the model
+      provider whose key you supplied, under their terms, and never to us. The
+      one thing the app sends us is an <b>installation ID</b> at purchase, so
+      the key can be delivered to the right copy.</p>
+    <p>Questions, refunds, or anything wrong:
+      <a href="mailto:deliberonsales@gmail.com">deliberonsales@gmail.com</a> —
+      a human reads it.</p>
+  </div>
+
+  <div class="foot">
+    <span><a href="/">← chatterbot2000.com</a></span>
+    <span>© 2026</span>
+  </div>
+
+</div>
