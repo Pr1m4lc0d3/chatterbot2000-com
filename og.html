@@ -116,26 +116,37 @@ h1 em {
   border-bottom: 0;
 }
 
-/* ---- the ask, at the end of his finger --------------------------------- */
+/* ---- the ask, filling the bottom-right quadrant ------------------------ */
 /* ⛔ THE BUTTON SITS WHERE HE IS POINTING. Move one, move the other, or the
-   gesture stops meaning anything and the card loses its only instruction. */
-.btn {
+   gesture stops meaning anything and the card loses its only instruction.
+   The quadrant IS the target: he points into this box, so anything centred in
+   it reads as the thing he means, and it can be as large as the space allows.
+
+   ⛔ SIZED FOR A THUMBNAIL, NOT FOR THIS FILE. Seen in a Discord or Slack
+   unfurl the card is rendered around half this wide, and the previous button's
+   sub-line was simply unreadable there. If it does not survive being halved it
+   is too small, whatever it looks like at full size. */
+.ask {
   position: absolute;
-  right: 4%; bottom: 30%;
+  left: 50%; top: 50%;
+  width: 50%; height: 50%;
+  display: grid; place-items: center;
+}
+.btn {
   display: inline-block;
   background: var(--tomato); color: #fff;
-  font-size: 4.1vh; font-weight: 800;
+  font-size: 6.2vh; font-weight: 800;
   letter-spacing: .03em; text-transform: uppercase;
   text-decoration: none;
-  padding: .62em 1em;
-  border: 4px solid var(--ink);
-  box-shadow: 8px 8px 0 var(--ink);
+  padding: .52em .78em;
+  border: 5px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
   text-align: center;
   white-space: nowrap;
 }
 .btn small {
-  display: block; margin-top: .5vh;
-  font-size: .40em; letter-spacing: .12em; font-weight: 700;
+  display: block; margin-top: 1.1vh;
+  font-size: .38em; letter-spacing: .1em; font-weight: 700;
 }
 </style>
 
@@ -153,6 +164,8 @@ h1 em {
   <p class="pitch">“Hi! I’m Chatty. I sit on your desktop and do things for you —
     no browser tab, no sign-up, and nothing to pay me, ever.”</p>
 
-  <span class="btn">Download Free<small>The app is free forever</small></span>
+  <div class="ask">
+    <span class="btn">Download Free<small>Free forever · No account</small></span>
+  </div>
 
 </div>
