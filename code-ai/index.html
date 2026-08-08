@@ -13,9 +13,7 @@
 <meta property="og:url" content="https://chatterbot2000.com/code-ai">
 <meta property="og:title" content="CODE·A.I. specialists — Chatterbot 2000">
 <meta property="og:description" content="One trade, one voice, its own library. $9.99 a month inside the free app.">
-<!-- ⛔ PNG, never .webp - several scrapers silently drop a webp og:image.
-     Reuses the app card until this page earns one of its own; a versioned
-     filename is what stops the scrapers serving a stale picture. -->
+<!-- ⛔ PNG, never .webp - several scrapers silently drop a webp og:image. -->
 <meta property="og:image" content="https://chatterbot2000.com/assets/og-v5.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -23,23 +21,20 @@
 
 <style>
 /* ============================================================================
-   THE SAME 1950s PRESS AS THE FRONT PAGE - same paper, same two spot colours,
-   same heavy rules - because this is the second page of one advertisement, not
-   a different publication.
+   THE SAME 1950s PRESS AS THE FRONT PAGE, AND THE SAME LAW: ONE SCREEN, NO
+   SCROLLBAR. html and body are height-locked, every vertical measure is in vh,
+   and the layout compresses instead of growing a bar.
 
-   ⛔ THIS PAGE IS ALLOWED TO SCROLL AND THE FRONT PAGE IS NOT, and that is a
-   deliberate difference rather than an oversight. The front page has ONE job
-   (get the free app downloaded) and height-locks itself so nothing can push the
-   button off the screen. This page carries the terms, the scope limits and the
-   refund promise - text a buyer is entitled to READ. Height-locking it would
-   silently CUT the small print on a short window, and a promise that is only
-   visible at 1080p is not a promise. It is laid out to fit one screen at any
-   ordinary desktop height; below that it scrolls rather than hides.
+   ⛔ THE SMALL PRINT LIVES IN MODALS, AND THAT IS WHAT MAKES THE LOCK HONEST.
+   An earlier pass ran the terms, the scope limits and the refund down the page
+   and grew a scrollbar. Height-locking THAT would have silently cut a promise
+   in half on a short window. Behind a click, the conditions are complete and
+   the page still says one thing at a time - which is how a printed advert
+   handled its conditions too: a line at the foot, and the full text on request.
 
-   ⛔ NO ROSTER HERE. The forty are met inside the app, where a buyer can see a
-   face, read the pitch and press one button - and the whole gallery lives on
-   Deliberon's symbiosis map, which is a better exhibit than a list of names.
-   Printing forty names on this page would duplicate both and sell neither.
+   ⛔ NO ROSTER HERE. The forty are met inside the app, where a buyer sees a
+   face and presses one button, and the whole gallery is Deliberon's symbiosis
+   map. Reprinting names here would duplicate both and sell neither.
    ============================================================================ */
 :root {
   --paper:  #f7e7c3;
@@ -49,7 +44,7 @@
   --gold:   #ffc93c;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 body {
   background: var(--paper);
   color: var(--ink);
@@ -65,7 +60,13 @@ body::before {
   pointer-events: none;
 }
 
-.sheet { max-width: 1180px; margin: 0 auto; padding: 20px 30px 26px; }
+.sheet {
+  height: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2.2vh 30px 1.8vh;
+  display: flex; flex-direction: column;
+}
 
 .top {
   display: flex; align-items: center; gap: 14px;
@@ -78,17 +79,17 @@ body::before {
 .top .rule { flex: 1; }
 .top .since { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .6; }
 
-.masthead { text-align: center; margin: 22px 0 0; }
+.masthead { text-align: center; margin: 2.4vh 0 0; }
 .eyebrow {
   display: inline-block;
   background: var(--ink); color: var(--paper);
-  font-size: 11px; font-weight: 700;
+  font-size: clamp(10px, 1.1vh, 12px); font-weight: 700;
   letter-spacing: .22em; text-transform: uppercase;
-  padding: 4px 10px; margin: 0 0 12px;
+  padding: 4px 10px; margin: 0 0 1.2vh;
 }
 h1 {
   margin: 0;
-  font-size: clamp(32px, 6.4vw, 66px);
+  font-size: clamp(28px, 6.6vh, 62px);
   line-height: .86;
   letter-spacing: -0.03em;
   text-shadow: 3px 3px 0 var(--gold);
@@ -99,84 +100,125 @@ h1 em {
   display: block; font-style: italic; text-transform: none;
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 400; color: var(--tomato);
-  font-size: .40em; letter-spacing: 0; margin-top: .18em;
+  font-size: .40em; letter-spacing: 0; margin-top: .16em;
 }
 
-/* Three columns of ad copy, the period way to say three things at once. */
+/* Three columns of ad copy - the period way to say three things at once. */
 .cols {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 26px;
-  margin: 26px 0 0;
-  padding: 18px 0 0;
+  margin: 2.6vh 0 0;
+  padding: 1.8vh 0 0;
   border-top: 3px solid var(--ink);
 }
-.col h2 {
-  margin: 0 0 8px;
-  font-size: 15px; letter-spacing: .14em; text-transform: uppercase;
-}
+.col h2 { margin: 0 0 .8vh; font-size: clamp(12px, 1.65vh, 15px); letter-spacing: .14em; text-transform: uppercase; }
 .col h2 .n {
   display: inline-block; margin-right: 8px;
   background: var(--teal); color: var(--paper);
   width: 20px; height: 20px; line-height: 20px;
   text-align: center; border-radius: 50%; font-size: 12px;
 }
-.col p { margin: 0 0 9px; font-size: 14.5px; }
-.col b { font-weight: 700; }
+.col p { margin: 0 0 .9vh; font-size: clamp(12px, 1.6vh, 14.5px); }
 
-/* The price band - the one loud object on the page, as the burst is on page 1. */
 .band {
-  margin: 26px 0 0;
+  margin: 2.4vh 0 0;
   border: 3px solid var(--ink);
   background: var(--ink); color: var(--paper);
-  padding: 14px 20px;
+  padding: 1.4vh 20px;
   display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
 }
-.band .price { font-size: 30px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
-.band .price span { font-size: 15px; font-weight: 400; opacity: .85; }
+.band .price { font-size: clamp(20px, 3.4vh, 30px); font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+.band .price span { font-size: clamp(11px, 1.6vh, 15px); font-weight: 400; opacity: .85; }
 .band ul { margin: 0; padding: 0; list-style: none; flex: 1 1 340px; }
-.band li { font-size: 13.5px; line-height: 1.7; }
+.band li { font-size: clamp(11px, 1.5vh, 13.5px); line-height: 1.7; }
 .band li::before { content: "✓"; color: var(--gold); font-weight: 700; margin-right: 8px; }
 
-.asks { display: flex; gap: 14px; flex-wrap: wrap; margin: 18px 0 0; }
+.asks { display: flex; gap: 14px; flex-wrap: wrap; margin: 2vh 0 0; }
 .btn {
   display: inline-block; text-decoration: none;
   background: var(--tomato); color: #fff;
   border: 3px solid var(--ink);
   box-shadow: 6px 6px 0 var(--ink);
-  padding: 12px 22px;
-  font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: 15px;
+  padding: 1.2vh 22px;
+  font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  font-size: clamp(12px, 1.7vh, 15px);
 }
 .btn.ghost { background: var(--paper); color: var(--ink); }
 .btn:active { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--ink); }
 
-/* ⛔ SMALL PRINT, NOT HIDDEN PRINT. A 1950s advert put its conditions at the
-   foot in smaller type - which is honest as long as it is legible and complete.
-   It is 12px, full contrast, and says the awkward parts out loud. */
-.fine {
-  margin: 22px 0 0;
+/* ⛔ THE CONDITIONS LINE IS NOT DECORATION AND MUST NEVER BE QUIET. It is the
+   only thing on the page telling a buyer that a specialist named Veterinarian
+   is not one, so it is full contrast, underlined, and sits above the fold. */
+.conditions {
+  margin-top: auto; padding-top: 1.6vh;
   border-top: 3px solid var(--ink);
-  padding-top: 12px;
-  font-size: 12px; line-height: 1.65;
-  columns: 2; column-gap: 30px;
+  display: flex; gap: 10px 22px; flex-wrap: wrap; align-items: baseline;
+  font-size: clamp(11px, 1.5vh, 13px);
 }
-.fine h3 {
-  margin: 0 0 5px;
-  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+.conditions .lead { font-weight: 700; letter-spacing: .04em; }
+.conditions button {
+  font: inherit; color: var(--ink);
+  background: none; border: 0; padding: 0;
+  text-decoration: underline; text-underline-offset: 3px;
+  cursor: pointer;
 }
-.fine p { margin: 0 0 11px; break-inside: avoid; }
-.fine a { color: var(--ink); }
+.conditions button:hover { color: var(--tomato); }
 
 .foot {
-  margin: 16px 0 0; border-top: 1px solid rgba(28,26,23,.35); padding-top: 10px;
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .7;
+  margin-top: 1.2vh; padding-top: .8vh;
+  border-top: 1px solid rgba(28,26,23,.35);
+  display: flex; justify-content: space-between; gap: 16px;
+  font-size: clamp(10px, 1.35vh, 12px); letter-spacing: .1em;
+  text-transform: uppercase; opacity: .7;
 }
 .foot a { color: inherit; }
 
-@media (max-width: 860px) {
-  .cols { grid-template-columns: 1fr; gap: 18px; }
-  .fine { columns: 1; }
+/* ==== THE MODALS =========================================================
+   A clipping from the paper, laid on top of it. Same border weight as the
+   band so it belongs to the same press.
+   ⛔ THE CARD MAY SCROLL INSIDE ITSELF. That is not the scrollbar the page
+   forbids - the page stays fixed, and a bounded box that scrolls its own
+   contents is the only way to hold the full conditions on a short window
+   without cutting a word of them. */
+.veil {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(28,26,23,.62);
+  display: none; align-items: center; justify-content: center;
+  padding: 4vh 20px;
+}
+.veil[open] { display: flex; }
+.card {
+  background: var(--paper); color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 12px 12px 0 rgba(28,26,23,.55);
+  max-width: 640px; width: 100%;
+  max-height: 88vh; overflow-y: auto;
+  padding: 22px 26px 24px;
+  position: relative;
+}
+.card h3 {
+  margin: 0 0 12px; padding-right: 40px;
+  font-size: 15px; letter-spacing: .16em; text-transform: uppercase;
+}
+.card h3::after {
+  content: ""; display: block; height: 3px; background: var(--ink);
+  margin-top: 8px;
+}
+.card p { margin: 0 0 12px; font-size: 14px; line-height: 1.62; }
+.card p:last-child { margin-bottom: 0; }
+.card a { color: var(--ink); }
+.card .shout { background: var(--gold); padding: 1px 4px; font-weight: 700; }
+.card .x {
+  position: absolute; top: 14px; right: 16px;
+  font: 700 20px/1 "Futura", "Century Gothic", Verdana, sans-serif;
+  background: none; border: 0; cursor: pointer; color: var(--ink);
+}
+
+@media (max-width: 880px) {
+  html, body { height: auto; overflow: auto; }
+  .sheet { height: auto; }
+  .cols { grid-template-columns: 1fr; gap: 16px; }
 }
 </style>
 
@@ -199,38 +241,34 @@ h1 em {
   <div class="cols">
     <div class="col">
       <h2><span class="n">1</span>What it is</h2>
-      <p>Chatty is a generalist. A <b>CODE·A.I. specialist</b> replaces him with
-         a single vocation — its own face, its own voice, its own way of
-         thinking about one trade.</p>
-      <p>It is not a prompt with a costume on. Each one is built from a
-         vocational kernel and a layered character, and it answers <b>out of a
-         curated library</b> rather than from whatever it half-remembers.</p>
-      <p>It advises. It reads the situation, tells you what it would check
-         first, and says plainly when the honest answer is <b>go and see a
-         professional</b>.</p>
+      <p>Chatty is a generalist. A <b>CODE·A.I. specialist</b> replaces him with a
+         single vocation — its own face, its own voice, its own way of thinking
+         about one trade.</p>
+      <p>Not a prompt in a costume. Each is built from a vocational kernel and a
+         layered character, and answers <b>out of a curated library</b> rather
+         than from whatever it half-remembers.</p>
+      <p>It advises: it tells you what it would check first, and says plainly
+         when the honest answer is <b>go and see a professional</b>.</p>
     </div>
 
     <div class="col">
       <h2><span class="n">2</span>How you meet them</h2>
       <p>Inside the app, which is the only place you need to look. Open
          Chatterbot, click the <b>gear</b>, click <b>AGENT</b>, and walk the
-         roster — a face, what it does, and one button.</p>
-      <p>Buy the one you want and it unlocks <b>in place</b>. No account, no
-         sign-up, nothing to copy or paste; the app collects the key itself and
-         the button becomes <b>Load</b>.</p>
-      <p>Keep as many as you like. Switch between them whenever you want, one at
-         a time on your desktop.</p>
+         roster — a face, what it does, one button.</p>
+      <p>Buy the one you want and it unlocks <b>in place</b>. No account, nothing
+         to copy or paste; the app collects the key itself and the button
+         becomes <b>Load</b>.</p>
+      <p>Keep as many as you like, one on your desktop at a time.</p>
     </div>
 
     <div class="col">
       <h2><span class="n">3</span>Where it goes bigger</h2>
       <p>A specialist here <b>advises you</b>. The same characters live in
-         <b>Deliberon</b>, where they stop being one voice on a desktop and
-         become a <b>council that argues, votes and uses tools to do the
-         work</b>.</p>
-      <p>That is the mothership. If you want to see all forty at once and how
-         they fit together, the <b>symbiosis map</b> over there is the exhibit —
-         this page will not try to reprint it.</p>
+         <b>Deliberon</b>, where they become a <b>council that argues, votes and
+         uses tools to do the work</b>.</p>
+      <p>That is the mothership. To see all forty at once and how they fit
+         together, the <b>symbiosis map</b> over there is the exhibit.</p>
       <p><a href="https://deliberon.com/code-ai">See the forty on Deliberon →</a></p>
     </div>
   </div>
@@ -249,49 +287,12 @@ h1 em {
     <a class="btn ghost" href="https://deliberon.com/code-ai">See the forty on Deliberon</a>
   </div>
 
-  <div class="fine">
-    <h3>What a specialist is, and is not</h3>
-    <p><b>Every CODE·A.I. specialist is advisory.</b> It is a piece of software
-      with a character, not a licensed practitioner, and it holds no
-      qualification of any kind. Nothing it says is medical, veterinary, legal,
-      financial, tax or mental-health advice, and no conversation with it
-      creates a professional relationship. Names like Healer, Dietician,
-      Veterinarian, Counselor, Jurist or Accountant describe the <b>trade a
-      character speaks about</b> — they do not claim licensure in it. Decisions
-      with real consequences deserve a real professional, and a good specialist
-      will tell you so itself.</p>
-    <p><b>In an emergency, contact your local emergency services.</b> This
-      software is not a crisis service and cannot summon help.</p>
-
-    <h3>What you pay, and what you pay separately</h3>
-    <p>Chatterbot 2000 is free. A specialist is <b>$9.99 per month, per
-      specialist</b>, billed automatically until you cancel. <b>The model is
-      not included</b>: you bring your own API key from a provider such as
-      OpenAI, Anthropic or DeepSeek and pay them directly for what you use, or
-      point the app at a local model and pay nobody. We never see that key.</p>
-    <p><b>Lemon Squeezy</b> is the merchant of record for every purchase. They
-      take the payment, handle sales tax, and are where a subscription is
-      cancelled — the receipt email carries the link.</p>
-
-    <h3>Refunds and cancelling</h3>
-    <p>Not happy, for any reason? Email within <b>14 days of your first
-      payment</b> and you get your money back — no questions and no form. After
-      that, cancel any time and <b>keep the month you have paid for</b>.
-      Renewals after the first fourteen days are not refunded.</p>
-    <p>A cancellation <b>revokes nothing</b>. Your key keeps working until the
-      date you have paid through, and when that date passes the specialist
-      stops and Chatty comes back. Nothing else in the app changes and nothing
-      of yours is deleted.</p>
-
-    <h3>Your data</h3>
-    <p>There is no account and no sign-up. Your conversations, your files and
-      your vault stay <b>on your machine</b>; what you ask goes to the model
-      provider whose key you supplied, under their terms, and never to us. The
-      one thing the app sends us is an <b>installation ID</b> at purchase, so
-      the key can be delivered to the right copy.</p>
-    <p>Questions, refunds, or anything wrong:
-      <a href="mailto:deliberonsales@gmail.com">deliberonsales@gmail.com</a> —
-      a human reads it.</p>
+  <div class="conditions">
+    <span class="lead">Before you buy:</span>
+    <button data-open="m-scope">What a specialist is, and is not</button>
+    <button data-open="m-pay">What you pay</button>
+    <button data-open="m-refund">Refunds &amp; cancelling</button>
+    <button data-open="m-data">Your data</button>
   </div>
 
   <div class="foot">
@@ -300,3 +301,108 @@ h1 em {
   </div>
 
 </div>
+
+<div class="veil" id="m-scope" role="dialog" aria-modal="true" aria-labelledby="h-scope">
+  <div class="card">
+    <button class="x" data-close aria-label="Close">✕</button>
+    <h3 id="h-scope">What a specialist is, and is not</h3>
+    <p><b>Every CODE·A.I. specialist is advisory.</b> It is software with a
+      character, not a licensed practitioner, and it holds no qualification,
+      licence or registration of any kind.</p>
+    <p>Nothing a specialist says is medical, veterinary, legal, financial, tax or
+      mental-health advice, and using one creates no professional relationship.</p>
+    <p>Names such as Healer, Apothecary, Dietician, Veterinarian, Counselor,
+      Chaplain, Jurist, Accountant, Investor and Economist describe <b>the trade
+      the character speaks about</b>. They do not claim licensure in it.</p>
+    <p>Decisions with real consequences — your health, an animal's health, your
+      money, your legal position — deserve a qualified human being. Take what a
+      specialist says as a well-read second opinion to bring <i>to</i> that
+      person, never as a substitute for them.</p>
+    <p><span class="shout">In an emergency, contact your local emergency
+      services.</span> This software is not a crisis service and cannot summon
+      help.</p>
+    <p>Language models also state false things confidently, including about
+      their own sources. Check anything that matters before acting on it.</p>
+  </div>
+</div>
+
+<div class="veil" id="m-pay" role="dialog" aria-modal="true" aria-labelledby="h-pay">
+  <div class="card">
+    <button class="x" data-close aria-label="Close">✕</button>
+    <h3 id="h-pay">What you pay</h3>
+    <p>Chatterbot 2000 is free, forever. A specialist is <b>$9.99 per month, per
+      specialist</b>, billed automatically until you cancel.</p>
+    <p><b>The model is not included.</b> You bring your own API key from a
+      provider such as OpenAI, Anthropic or DeepSeek and pay them directly for
+      what you use — or point the app at a model running on your own machine and
+      pay nobody anything.</p>
+    <p><b>Lemon Squeezy is the merchant of record</b> for every purchase. They
+      take the payment, handle sales tax, and are where a subscription is
+      cancelled; the receipt email carries the link.</p>
+  </div>
+</div>
+
+<div class="veil" id="m-refund" role="dialog" aria-modal="true" aria-labelledby="h-refund">
+  <div class="card">
+    <button class="x" data-close aria-label="Close">✕</button>
+    <h3 id="h-refund">Refunds &amp; cancelling</h3>
+    <p>Not happy, for any reason? Email within <span class="shout">14 days of
+      your first payment</span> and you get your money back — no questions and no
+      form.</p>
+    <p>After that, cancel any time and <b>keep the month you have paid for</b>.
+      Renewals beyond the first fourteen days are not refunded.</p>
+    <p>A cancellation <b>revokes nothing</b>. Your key keeps working until the
+      date you have paid through; when that date passes the specialist stops
+      loading and Chatty comes back. Nothing of yours is deleted.</p>
+    <p>Refunds and anything wrong:
+      <a href="mailto:deliberonsales@gmail.com">deliberonsales@gmail.com</a> — a
+      human reads it.</p>
+  </div>
+</div>
+
+<div class="veil" id="m-data" role="dialog" aria-modal="true" aria-labelledby="h-data">
+  <div class="card">
+    <button class="x" data-close aria-label="Close">✕</button>
+    <h3 id="h-data">Your data</h3>
+    <p>There is no account and no sign-up. Your conversations, your files, your
+      memory and your vault stay <b>on your machine</b>.</p>
+    <p>What you ask goes to the model provider whose key you supplied, under
+      their terms — and never to us. We cannot read your conversations because we
+      never receive them.</p>
+    <p>The one thing the app sends us is an <b>installation ID</b> when you buy,
+      so the key can be issued to the right copy, plus the email address you give
+      at checkout so we can send it to you.</p>
+  </div>
+</div>
+
+<script>
+// ⛔ NO LIBRARY, NO BUILD STEP. Four boxes and a close key.
+(function () {
+  var open = null;
+
+  function show(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    hide();
+    el.setAttribute('open', '');
+    open = el;
+    var x = el.querySelector('[data-close]');
+    if (x) x.focus();
+  }
+  function hide() {
+    if (open) { open.removeAttribute('open'); open = null; }
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-open]');
+    if (t) { e.preventDefault(); show(t.getAttribute('data-open')); return; }
+    if (e.target.closest('[data-close]')) { hide(); return; }
+    // Backdrop only - a click INSIDE the card must not close it mid-read.
+    if (e.target.classList && e.target.classList.contains('veil')) hide();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') hide();
+  });
+})();
+</script>
