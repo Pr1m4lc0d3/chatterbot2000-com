@@ -64,6 +64,7 @@ body::before {
 }
 
 .sheet {
+  justify-content: flex-start;
   position: relative;
   height: 100%;
   max-width: 1180px;
@@ -96,7 +97,7 @@ body::before {
 .art::before {
   content: "";
   position: absolute;
-  width: min(54vh, 460px); aspect-ratio: 1;
+  width: min(52vh, 560px); aspect-ratio: 1;
   border-radius: 50%;
   background: var(--teal);
   box-shadow: 0 0 0 8px var(--paper), 0 0 0 11px var(--ink);
@@ -105,13 +106,18 @@ body::before {
 .art img {
   position: relative;
   transform: translate(14%, -4%);
-  height: min(60vh, 480px);
+  height: min(58vh, 620px);
   width: auto; max-width: 100%;
   display: block;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
 }
 
-.copy { min-width: 0; }
+.copy { min-width: 0; padding-left: 1.5vw; }
+
+/* Centred masthead across the full sheet. */
+.masthead { text-align: center; margin: 1.2vh 0 0; }
+.masthead .eyebrow { margin: 0 0 .8vh; }
+.masthead h1 { margin: 0; }
 .eyebrow {
   display: inline-block;
   background: var(--ink); color: var(--paper);
@@ -139,7 +145,8 @@ h1 em {
   position: relative;
   margin: 2vh 0 0;
   font-size: clamp(13px, 1.85vh, 17px);
-  max-width: 30em;
+  max-width: 27em;
+  margin-left: -3.5vw;
   background: #fff;
   border: 3px solid var(--ink);
   border-radius: 18px;
@@ -234,6 +241,13 @@ footer .end { margin-left: auto; opacity: .6; }
     <span class="since">A friendly desktop assistant</span>
   </div>
 
+  <!-- The masthead runs across the whole page, above both columns - a title
+       tucked into one side reads as a column heading, not a headline. -->
+  <div class="masthead">
+    <p class="eyebrow">Introducing</p>
+    <h1>Chatterbot&nbsp;2000<em>the friendly little robot for your desktop</em></h1>
+  </div>
+
   <section class="ad">
 
     <div class="art">
@@ -245,12 +259,10 @@ footer .end { margin-left: auto; opacity: .6; }
     </div>
 
     <div class="copy">
-      <p class="eyebrow">Introducing</p>
-      <h1>Chatterbot&nbsp;2000<em>the friendly little robot for your desktop</em></h1>
 
       <p class="pitch">
-        He sits in the corner of your screen and answers when you ask. No browser tab,
-        no sign-up, no subscription — just Chatty, right where you are working.
+        “Hi! I’m Chatty. I sit on your desktop and do things for you —
+        no browser tab, no sign-up, no subscription.”
       </p>
 
       <ul class="points">
