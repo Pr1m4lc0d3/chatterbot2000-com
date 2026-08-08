@@ -511,7 +511,7 @@ footer .end { margin-left: auto; opacity: .6; }
         <!-- ⛔ "NO UPSELL" WAS A LIE - there are 40 paid agents inside the app.
              ⛔ AND THE ACADEMY LINE SAID "INCLUDES", with the same ✓ tick as the
              free features, which told the reader the agents came with the
-             download. They then met a $3.99 price on first run. Naming the price
+             download. They then met a paid wall on first run. Naming the price
              out here costs one click of interest and buys the only thing that
              actually converts later, which is being believed. The paid line
              deliberately does NOT get a ✓ - it is not part of what is free. -->
@@ -532,11 +532,11 @@ footer .end { margin-left: auto; opacity: .6; }
          sheet instead of the ad area, which is how the bottom row kept sliding
          out from under the corners it was supposed to hold. -->
     <div class="upsell">
-      <h3><span class="plus">+</span>Need an expert? Hire one for $3.99.</h3>
+      <h3><span class="plus">+</span>Need an expert? Hire one for $9.99 a month.</h3>
       <div class="carousel" id="carousel"></div>
       <p>
         Chatty handles the everyday. <b>40 vocational CODE·A.I. specialists</b> go
-        deeper in one trade — one payment, yours to keep, and entirely optional.
+        deeper in one trade — cancel any time, and entirely optional.
         <a href="https://deliberon.com/code-ai">See the roster</a>.
         <!-- ⛔ ON THIS EXISTING ROW, NOT A NEW ONE. The ad area is fixed-height:
              a paragraph of its own here shoved the bullet points up the page,
@@ -601,7 +601,7 @@ footer .end { margin-left: auto; opacity: .6; }
         var a = AGENTS[(at + i) % AGENTS.length];
         html += '<div class="agent">'
              +    '<img src="assets/agents/' + a[0] + '.jpg" alt="" loading="lazy" width="74" height="74">'
-             +    '<b>' + a[1] + '</b><span class="price">$3.99</span>'
+             +    '<b>' + a[1] + '</b><span class="price">$9.99/mo</span>'
              +  '</div>';
       }
       el.innerHTML = html;
