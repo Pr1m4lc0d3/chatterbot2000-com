@@ -100,7 +100,9 @@ body::before {
    Change a size here and only that element moves. That is the point. */
 .ad { position: relative; flex: 1 1 auto; min-height: 0; display: block; }
 
-.art  { position: absolute; left: -2%;  bottom: 0; width: 36%; display: grid; place-items: center; }
+/* Sat on the floor he looked dumped there rather than placed. Lifted clear of
+   the bottom edge, still left of the specialists so their space stays free. */
+.art  { position: absolute; left: 0; bottom: 13%; width: 37%; display: grid; place-items: center; }
 .copy { position: absolute; right: 0;   top: 0;    width: 55%; height: auto; display: block; }
 /* Dead centre of the sheet, independent of how wide its neighbours are. */
 .upsell { position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: 30%; }
