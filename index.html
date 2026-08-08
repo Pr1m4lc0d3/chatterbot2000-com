@@ -279,9 +279,11 @@ h1 em {
   z-index: 1;
 }
 
-/* Dropped a row clear of the widget's caption, which sits lower than the panel
-   itself and is what the claims were colliding with. */
-ul.points { list-style: none; margin: 6.5vh 0 0; padding: 0; display: grid; gap: 1.3vh; }
+/* ⛔ THE BIG TOP MARGIN WAS REDUNDANT AND COST REAL ROOM. .copy's padding-right
+   already keeps the claims out of the widget horizontally; pushing them DOWN as
+   well bought nothing and, with six claims on a short window, drove the last one
+   into the specialists below. Tight enough that the list cannot reach them. */
+ul.points { list-style: none; margin: 2.4vh 0 0; padding: 0; display: grid; gap: .85vh; }
 ul.points li { display: flex; align-items: baseline; gap: 10px; font-size: clamp(12px, 1.6vh, 15.5px); }
 ul.points .tick {
   flex: 0 0 auto; width: 1.15em; height: 1.15em; border-radius: 50%;
