@@ -407,13 +407,6 @@ footer {
 }
 footer a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--tomato); }
 footer .end { margin-left: auto; opacity: .6; }
-/* ⛔ THE REFUND LINE LIVES IN THIS BAR, NOT IN THE AD. Placed in .upsell it
-   added a paragraph to a fixed-height area and shoved the bullet points up the
-   page. The footer already exists, already spans the width, and has room going
-   spare - so the promise costs the layout nothing.
-   Centred by pushing off the name on its left; .end's own margin-left:auto then
-   holds the copyright at the right. */
-footer .refund { margin-left: auto; opacity: .6; text-align: center; }
 
 @media (max-width: 860px) {
   .ad { grid-template-columns: 1fr; gap: 1vh; text-align: center; }
@@ -534,6 +527,11 @@ footer .refund { margin-left: auto; opacity: .6; text-align: center; }
         Chatty handles the everyday. <b>40 vocational CODE·A.I. specialists</b> go
         deeper in one trade — one payment, yours to keep, and entirely optional.
         <a href="https://deliberon.com/code-ai">See the roster</a>.
+        <!-- ⛔ ON THIS EXISTING ROW, NOT A NEW ONE. The ad area is fixed-height:
+             a paragraph of its own here shoved the bullet points up the page,
+             and a footer row of its own was a whole new row for five words.
+             Appended to a sentence that already exists, it costs no height. -->
+        14-day refund.
       </p>
     </div>
 
@@ -615,7 +613,6 @@ footer .refund { margin-left: auto; opacity: .6; text-align: center; }
          a few inches above. A second, plainer copy of the same link only gave
          the eye somewhere else to go. -->
     <span>Chatterbot&nbsp;2000</span>
-    <span class="refund">14-day refund · no questions</span>
     <span class="end">© 2026</span>
   </footer>
 </main>
