@@ -329,6 +329,9 @@ ul.points a { color: var(--tomato); font-weight: 700; }
   font-size: .8em; transform: translateY(-.05em); margin-right: .45em;
 }
 .upsell p { margin: .6vh 0 0; font-size: clamp(10px, 1.35vh, 13px); opacity: .78; }
+/* Slightly quieter than the pitch above it, but NOT small print - a refund
+   promise that has to be hunted for does not do the job it exists to do. */
+.upsell p.refund { margin-top: .8vh; font-size: clamp(9px, 1.2vh, 12px); opacity: .62; }
 .upsell a { color: var(--tomato); font-weight: 700; }
 
 /* Three at a time out of forty. A static trio implies the catalogue IS three;
@@ -527,6 +530,14 @@ footer .end { margin-left: auto; opacity: .6; }
         Chatty handles the everyday. <b>40 vocational CODE·A.I. specialists</b> go
         deeper in one trade — one payment, yours to keep, and entirely optional.
         <a href="https://deliberon.com/code-ai">See the roster</a>.
+      </p>
+      <!-- ⛔ NEXT TO THE PRICE, NOT BURIED IN A FOOTER. The refund is worth more
+           where the money is being considered than in small print nobody opens,
+           and at $3.99 a dispute costs many times the sale - so the cheapest
+           policy is the one that makes asking easier than complaining. -->
+      <p class="refund">
+        <b>Not happy? Email within 14 days and you get your money back.</b>
+        No questions, no form to fill in.
       </p>
     </div>
 
