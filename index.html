@@ -251,7 +251,13 @@ h1 em {
   margin: 0 0 0;
   font-size: clamp(13px, 1.85vh, 17px);
   max-width: 27em;
-  margin-left: -3.5vw;
+  /* Pushed left toward the masthead's own left edge. It clears Chatty because
+     it sits ABOVE his roundel, not beside it - only the antenna reaches this
+     high, and that is far to the left of where the balloon now starts.
+     ⛔ % OF .copy, NOT vw. A viewport unit here is measured against a box this
+     element does not live in, so it drifts out of agreement with the circle at
+     other window widths - which is the collision this is threading. */
+  margin-left: -26%;
   background: #fff;
   border: 3px solid var(--ink);
   border-radius: 18px;
@@ -292,14 +298,6 @@ ul.points .tick-paid {
   box-shadow: inset 0 0 0 2px var(--tomato);
   font-size: .8em;
 }
-/* Not-yet-shipped: hollow, ink rather than teal, so it never reads as one of
-   the things you get when you download today. */
-ul.points .tick-soon {
-  background: transparent; color: var(--ink);
-  box-shadow: inset 0 0 0 2px var(--ink);
-  opacity: .55; font-size: .8em;
-}
-ul.points li:last-child { opacity: .72; }
 ul.points b { font-weight: 700; }
 ul.points a { color: var(--tomato); font-weight: 700; }
 
@@ -509,11 +507,8 @@ footer .end { margin-left: auto; opacity: .6; }
         <li><span class="tick">✓</span><span><b>Bring your own API key.</b> We never see it.</span></li>
         <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b></span></li>
         <li><span class="tick">✓</span><span><b>Drop in images and files.</b> Chatty reads them.</span></li>
-        <!-- ⛔ NOT A ✓. The vault and voice-to-text are being built right now, and
-             a shipped-features tick on unshipped work is the same lie the
-             Academy bullet was telling. It gets its own marker and the word
-             "Coming", so it can go live the day they do without a rewrite. -->
-        <li><span class="tick tick-soon">→</span><span><b>Coming:</b> private vault &amp; memory, and voice-to-text.</span></li>
+        <li><span class="tick">✓</span><span><b>Talk instead of typing.</b> Voice to text, built in.</span></li>
+        <li><span class="tick">✓</span><span><b>Private vault &amp; memory.</b> It remembers what matters.</span></li>
       </ul>
     </div>
 
@@ -603,8 +598,11 @@ footer .end { margin-left: auto; opacity: .6; }
   </script>
 
   <footer>
+    <!-- The CODE·A.I. link lived here too and earned nothing: the specialists
+         already have their own block with portraits, a price and a roster link
+         a few inches above. A second, plainer copy of the same link only gave
+         the eye somewhere else to go. -->
     <span>Chatterbot&nbsp;2000</span>
-    <a href="https://deliberon.com/code-ai">CODE·A.I. specialists</a>
     <span class="end">© 2026</span>
   </footer>
 </main>
