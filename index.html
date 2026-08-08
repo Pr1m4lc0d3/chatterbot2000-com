@@ -190,6 +190,15 @@ ul.points .tick {
   font-size: .72em; font-weight: 700;
   display: grid; place-items: center; transform: translateY(.1em);
 }
+/* ⛔ THE PAID LINE MUST NOT WEAR THE FREE BADGE. A teal ✓ identical to the three
+   above it is what made the Academy read as included. A hollow tomato "+" says
+   addition, not inclusion, and it says it before the reader has to parse a word. */
+ul.points li.paid { margin-top: .4vh; }
+ul.points .tick-paid {
+  background: transparent; color: var(--tomato);
+  box-shadow: inset 0 0 0 2px var(--tomato);
+  font-size: .8em;
+}
 ul.points b { font-weight: 700; }
 ul.points a { color: var(--tomato); font-weight: 700; }
 
@@ -288,16 +297,29 @@ footer .end { margin-left: auto; opacity: .6; }
       </p>
 
       <ul class="points">
-        <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial, no account, no upsell.</span></li>
+        <!-- ⛔ "NO UPSELL" WAS A LIE - there are 40 paid agents inside the app.
+             ⛔ AND THE ACADEMY LINE SAID "INCLUDES", with the same ✓ tick as the
+             free features, which told the reader the agents came with the
+             download. They then met a $3.99 price on first run. Naming the price
+             out here costs one click of interest and buys the only thing that
+             actually converts later, which is being believed. The paid line
+             deliberately does NOT get a ✓ - it is not part of what is free. -->
+        <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial, no account, no time limit.</span></li>
         <li><span class="tick">✓</span><span><b>Bring your own API key.</b> Your provider, your account — we never see a word of it.</span></li>
         <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b> Nothing else to install.</span></li>
-        <li><span class="tick">✓</span><span><b>Includes EXCLUSIVE access to the Vocational CODE·A.I. Academy!</b>
-          <a href="https://deliberon.com/code-ai">Click HERE to learn more</a>.</span></li>
+        <li class="paid"><span class="tick tick-paid">+</span><span><b>Want a specialist? That part’s paid.</b>
+          Chatty handles the everyday. Inside the app you can hire a vocational
+          CODE·A.I. expert for <b>$3.99 once</b> — optional, never required, and
+          Chatty is complete without one.
+          <a href="https://deliberon.com/code-ai">See what they are</a>.</span></li>
       </ul>
 
       <div class="cta">
         <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">
-          Download Free for Windows<small>No account · Never a fee to us</small>
+          <!-- Scoped to the app, which is the thing this button hands over. A
+               blanket "never a fee to us" stopped being true the moment the shop
+               opened. -->
+          Download Free for Windows<small>The app is free forever · No account</small>
         </a>
       </div>
       <p class="fineprint">
