@@ -87,17 +87,75 @@ body::before {
 .ad {
   flex: 1 1 auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  /* ⛔ CHATTY IS WIDTH-BOUND, NOT HEIGHT-BOUND. His height clamp never binds -
+     the column width decides how big he gets - so a narrow left column left a
+     300px hole between the claims and the band. Widening the column is what
+     actually grows him. */
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   gap: 34px;
   align-items: center;
   min-height: 0;              /* lets the grid shrink instead of overflowing */
+}
+
+/* ==== The standing widget, top right ====================================
+   The product itself, shown as an object rather than as a flat screenshot: a
+   slab of black with the panel on it, turned a few degrees so it stands like a
+   phone on a shelf, sitting on its own reflection.
+
+   ⛔ ONE perspective ancestor, ONE transform. The reflection is a SEPARATE copy
+   flipped inside the same tilted stage, NOT a second rotateY - transform it
+   independently and the two halves disagree about where the eye is, which is
+   the thing that makes a fake reflection look fake. */
+.rig {
+  position: absolute;
+  top: 8.5vh; right: 0;
+  width: min(20vh, 210px);
+  perspective: 900px;
+  z-index: 3;
+  pointer-events: none;
+}
+.rig-inner { transform: rotateY(-19deg) rotateX(2deg); transform-style: preserve-3d; }
+.rig img { display: block; width: 100%; height: auto; border-radius: 12px; }
+/* The slab. Deliberately blacker than the panel so the panel reads as lit. */
+.rig .glass {
+  background: #000;
+  border-radius: 14px;
+  padding: 5px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.22) inset,
+    18px 22px 34px rgba(0,0,0,.42),
+    0 0 0 2px var(--ink);
+}
+/* ⛔ NOT opacity alone. A flat 30% copy reads as a duplicate sitting in fog;
+   a real reflection fades WITH DISTANCE, so it needs the gradient mask. */
+/* ⛔ A FULL-HEIGHT COPY IS NOT A REFLECTION, it is the picture printed twice.
+   Cropped to the top third - which is all a shallow viewing angle would show -
+   and faded hard, so it reads as the shelf under the object. */
+/* ⛔ THE MASK GOES ON THE CLIPPER, NOT THE MIRROR. A mask painted on the flipped
+   element is flipped with it, so a fade authored "away from the object" arrives
+   pointing at it. .reflect is never transformed, so its gradient means what it
+   says. Height is in vh, not %, because the parent has no definite height and a
+   percentage would silently resolve to auto. */
+.rig .reflect {
+  height: 9vh; max-height: 96px; overflow: hidden; margin-top: 3px;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.5), transparent 82%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,.5), transparent 82%);
+}
+.rig .mirror { transform: scaleY(-1); opacity: .5; filter: blur(.6px); }
+.rig .cap {
+  margin-top: 1vh;
+  font-size: clamp(9px, 1.15vh, 11px);
+  letter-spacing: .16em; text-transform: uppercase;
+  text-align: center; opacity: .62;
 }
 
 .art { position: relative; display: grid; place-items: center; min-height: 0; height: 100%; }
 .art::before {
   content: "";
   position: absolute;
-  width: min(52vh, 560px); aspect-ratio: 1;
+  /* ⛔ MUST TRACK .art img's HEIGHT. The framing ratio is ~0.9 of his height;
+     grow him without growing this and he bursts out of his own roundel. */
+  width: min(59vh, 630px); aspect-ratio: 1;
   border-radius: 50%;
   background: var(--teal);
   box-shadow: 0 0 0 8px var(--paper), 0 0 0 11px var(--ink);
@@ -106,8 +164,12 @@ body::before {
 .art img {
   position: relative;
   transform: translate(14%, -4%);
-  height: min(58vh, 620px);
-  width: auto; max-width: 100%;
+  /* ⛔ max-width:100% MADE THE HEIGHT CLAMP DEAD. The column width won every
+     time, so raising the clamp did nothing and a void opened under him. Height
+     governs now; he is allowed to bleed a little past his column, which is what
+     the pose is for - the pointing hand is SUPPOSED to cross into the copy. */
+  height: min(66vh, 700px);
+  width: auto; max-width: 122%;
   display: block;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
 }
@@ -121,7 +183,10 @@ body::before {
 .copy {
   min-width: 0; padding-left: 1.5vw;
   height: 100%; min-height: 0;
-  display: flex; flex-direction: column; justify-content: flex-start;
+  /* ⛔ CENTRED, NOT top-aligned. The ask has moved out to .band, so the auto
+     margin that used to balance this column has no partner left - top-aligning
+     now drops the balloon to the floor and Chatty points at nothing. */
+  display: flex; flex-direction: column; justify-content: center;
 }
 
 /* Centred masthead across the full sheet. */
@@ -153,11 +218,8 @@ h1 em {
 }
 .pitch {
   position: relative;
-  /* ⛔ TWO auto margins - this one and .cta's - split the leftover height between
-     them, parking the balloon-and-claims group at Chatty's finger height rather
-     than against the masthead. Without it the ask being pinned to the floor
-     leaves a hole in the middle and he points at nothing. */
-  margin: auto 0 0;
+  /* The column centres itself now; the ask lives in .band. */
+  margin: 0 0 0;
   font-size: clamp(13px, 1.85vh, 17px);
   max-width: 27em;
   margin-left: -3.5vw;
@@ -207,7 +269,58 @@ ul.points a { color: var(--tomato); font-weight: 700; }
 /* ⛔ THE ASK LIVES BOTTOM-RIGHT. It is the last thing in the reading order
    and must not sit next to the claims his finger is pointing at, or the two
    compete for the same attention. */
-.cta { margin-top: auto; text-align: right; }
+/* ==== The bottom band: the paid upgrade on the left, the free ask on the right
+   The paid line used to be a fourth bullet wearing the same badge as the free
+   features, which read as "included". Down here it is physically separated from
+   the free list, next to the price, where an upgrade belongs. */
+.band {
+  display: flex; align-items: flex-end; gap: 28px;
+  justify-content: space-between;
+  padding-top: 1.2vh;
+}
+.upsell { flex: 1 1 auto; min-width: 0; max-width: 33em; }
+.upsell h3 {
+  margin: 0 0 .5vh;
+  font-size: clamp(12px, 1.6vh, 16px);
+  letter-spacing: .02em;
+}
+.upsell h3 .plus {
+  display: inline-grid; place-items: center;
+  width: 1.15em; height: 1.15em; border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--tomato); color: var(--tomato);
+  font-size: .8em; transform: translateY(-.05em); margin-right: .45em;
+}
+.upsell p { margin: .6vh 0 0; font-size: clamp(10px, 1.35vh, 13px); opacity: .78; }
+.upsell a { color: var(--tomato); font-weight: 700; }
+
+/* Three at a time out of forty. A static trio implies the catalogue IS three;
+   rotating shows the range without needing forty tiles of room. */
+.carousel { display: flex; gap: 12px; }
+.agent {
+  flex: 1 1 0; min-width: 0; text-align: center;
+  transition: opacity .5s ease;
+}
+/* ⛔ THESE PORTRAITS ARE NEAR-BLACK. They are lit for a dark app panel, and at
+   this size on cream paper they render as featureless discs - the faces are
+   there, they just have nowhere to go. Lifted for print, and framed, because a
+   dark portrait has no edge of its own against a light page. */
+.agent img {
+  width: 100%; max-width: 82px; aspect-ratio: 1;
+  object-fit: cover; object-position: 50% 32%; display: block; margin: 0 auto;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background: var(--ink);
+  filter: brightness(1.85) contrast(1.06) saturate(1.12);
+}
+.agent b {
+  display: block; margin-top: .5vh;
+  font-size: clamp(9px, 1.2vh, 11.5px);
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.agent .price { display: block; font-size: clamp(8px, 1.05vh, 10px); opacity: .6; }
+.carousel.swap .agent { opacity: 0; }
+
+.cta { text-align: right; flex: 0 0 auto; }
 .tail { text-align: right; }
 .btn {
   display: inline-block;
@@ -226,9 +339,13 @@ ul.points a { color: var(--tomato); font-weight: 700; }
 .fineprint { margin-top: 1.2vh; margin-left: auto; text-align: right; font-size: clamp(10px, 1.35vh, 13px); opacity: .8; max-width: 36em; }
 .soon { margin-top: .5vh; text-align: right; font-size: clamp(10px, 1.3vh, 12.5px); letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
 
+/* ⛔ NOT top-right any more - the standing widget owns that corner, and two
+   loud objects fighting for it made the masthead the third thing you saw.
+   Slapped on the left of Chatty's roundel like a price sticker on a box, which
+   is where a 1950s advert would have put it anyway. */
 .burst {
-  position: absolute; right: 1%; top: 3%;
-  width: min(14vh, 124px); aspect-ratio: 1;
+  position: absolute; left: 0; top: 9vh;
+  width: min(13vh, 116px); aspect-ratio: 1;
   background: var(--gold);
   clip-path: polygon(50% 0%,60% 18%,78% 8%,79% 29%,98% 27%,88% 45%,100% 58%,81% 63%,86% 83%,66% 78%,60% 97%,47% 82%,32% 95%,29% 75%,10% 78%,17% 60%,0% 50%,18% 39%,7% 22%,27% 22%,26% 3%,43% 14%);
   display: grid; place-items: center; text-align: center;
@@ -252,10 +369,17 @@ footer .end { margin-left: auto; opacity: .6; }
   .art { order: -1; }
   .art img { height: 25vh; }
   .art::before { width: 20vh; }
-  .burst { width: 11vh; right: 0; top: 0; }
+  .burst { width: 11vh; left: auto; right: 0; top: 0; }
   ul.points { max-width: 30em; margin-left: auto; margin-right: auto; text-align: left; }
   footer { justify-content: center; }
   .pitch, .fineprint { margin-left: auto; margin-right: auto; }
+  /* ⛔ THE STANDING WIDGET IS A WIDE-SCREEN LUXURY. On a phone it would sit on
+     top of the masthead, and the reflection alone costs more height than the
+     headline. The page still says everything without it. */
+  .rig { display: none; }
+  .band { flex-direction: column; align-items: stretch; gap: 1.4vh; }
+  .cta { text-align: center; }
+  .upsell { max-width: none; }
 }
 </style>
 
@@ -266,6 +390,27 @@ footer .end { margin-left: auto; opacity: .6; }
     <b>Chatterbot&nbsp;2000</b>
     <span class="rule"></span>
     <span class="since">A friendly desktop assistant</span>
+  </div>
+
+  <!-- The product itself, standing on its reflection in the top right. Shown as
+       an object on a shelf rather than as a flat screenshot, because "a small
+       thing that sits on your desktop" is the entire pitch and a rectangle of
+       UI pasted on the page does not say that. -->
+  <!-- ⛔ A DIRECT CHILD OF .sheet. Parked inside .ad it resolved against a
+       different box than intended and landed on Chatty's ear. -->
+  <div class="burst"><span>Free!<small>Forever</small></span></div>
+
+  <div class="rig">
+    <div class="rig-inner">
+      <div class="glass"><img src="assets/widget-chat.png" width="380" height="530"
+           alt="The Chatterbot 2000 panel answering a question, with its sources listed."></div>
+      <div class="reflect" aria-hidden="true">
+        <div class="glass mirror"><img src="assets/widget-chat.png" width="380" height="530" alt=""></div>
+      </div>
+    </div>
+    <!-- ⛔ NOT "actual size" - it is scaled on this page, and that is exactly the
+         kind of small untrue flourish this page has already been cleaned of. -->
+    <p class="cap">Real answers · Real sources</p>
   </div>
 
   <!-- The masthead runs across the whole page, above both columns - a title
@@ -307,21 +452,34 @@ footer .end { margin-left: auto; opacity: .6; }
         <li><span class="tick">✓</span><span><b>Free, and actually free.</b> No trial, no account, no time limit.</span></li>
         <li><span class="tick">✓</span><span><b>Bring your own API key.</b> Your provider, your account — we never see a word of it.</span></li>
         <li><span class="tick">✓</span><span><b>One file. Double-click. Done.</b> Nothing else to install.</span></li>
-        <li class="paid"><span class="tick tick-paid">+</span><span><b>Want a specialist? That part’s paid.</b>
-          Chatty handles the everyday. Inside the app you can hire a vocational
-          CODE·A.I. expert for <b>$3.99 once</b> — optional, never required, and
-          Chatty is complete without one.
-          <a href="https://deliberon.com/code-ai">See what they are</a>.</span></li>
       </ul>
+    </div>
 
-      <div class="cta">
-        <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">
-          <!-- Scoped to the app, which is the thing this button hands over. A
-               blanket "never a fee to us" stopped being true the moment the shop
-               opened. -->
-          Download Free for Windows<small>The app is free forever · No account</small>
-        </a>
-      </div>
+  </section>
+
+  <!-- ==== The band: what costs money on the left, what does not on the right ==
+       The upgrade is OUT of the free list on purpose. As a fourth bullet it wore
+       the same badge as the free features and read as included; sitting here
+       beside its own price it reads as what it is. -->
+  <section class="band">
+
+    <div class="upsell">
+      <h3><span class="plus">+</span>Need an expert? Hire one for $3.99.</h3>
+      <div class="carousel" id="carousel"></div>
+      <p>
+        Chatty handles the everyday. <b>40 vocational CODE·A.I. specialists</b> go
+        deeper in one trade — one payment, yours to keep, and entirely optional.
+        <a href="https://deliberon.com/code-ai">See the roster</a>.
+      </p>
+    </div>
+
+    <div class="cta">
+      <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">
+        <!-- Scoped to the app, which is the thing this button hands over. A
+             blanket "never a fee to us" stopped being true the moment the shop
+             opened. -->
+        Download Free for Windows<small>The app is free forever · No account</small>
+      </a>
       <p class="fineprint">
         Chatty needs a brain: bring a key from OpenAI, Anthropic or DeepSeek and you pay
         <i>them</i> for what you use — or run a local model and pay nobody anything.
@@ -329,8 +487,62 @@ footer .end { margin-left: auto; opacity: .6; }
       <p class="soon">macOS · Linux · Android coming soon</p>
     </div>
 
-    <div class="burst"><span>Free!<small>Forever</small></span></div>
   </section>
+
+  <script>
+  // ==== The specialist carousel ===========================================
+  // Three at a time out of forty. A fixed trio would tell the reader the
+  // catalogue IS three; rotating shows the range without spending forty tiles
+  // of room we do not have on a one-screen page.
+  //
+  // ⛔ NO NETWORK, NO FRAMEWORK. This page has to render whole on first paint -
+  // a carousel that pops in after a fetch is worse than a static trio.
+  (function () {
+    var AGENTS = [
+      ['coder','Coder'],['apothecary','Apothecary'],['chef','Chef'],
+      ['writer','Writer'],['accountant','Accountant'],['engineer','Engineer'],
+      ['grower','Grower'],['musician','Musician'],['teacher','Teacher'],
+      ['historian','Historian'],['designer','Designer'],['builder','Builder'],
+      ['investor','Investor'],['scientist','Scientist'],['veterinarian','Veterinarian'],
+      ['artist','Artist'],['coach','Coach'],['dietician','Dietician'],
+      ['homesteader','Homesteader'],['jurist','Jurist'],['maker','Maker'],
+      ['economist','Economist'],['herald','Herald'],['investigator','Investigator'],
+      ['keeper','Keeper'],['leader','Leader'],['performer','Performer'],
+      ['steward','Steward'],['technologist','Technologist'],['wanderer','Wanderer'],
+      ['champion','Champion'],['chaplain','Chaplain'],['civicplanner','Civic Planner'],
+      ['counselor','Counselor'],['elder','Elder'],['healer','Healer'],
+      ['integrator','Integrator'],['kinder','Kinder'],['peacemaker','Peacemaker'],
+      ['lover','Lover']
+    ];
+
+    var el = document.getElementById('carousel');
+    if (!el) return;
+    var at = 0;
+
+    function paint() {
+      var html = '';
+      for (var i = 0; i < 3; i++) {
+        var a = AGENTS[(at + i) % AGENTS.length];
+        html += '<div class="agent">'
+             +    '<img src="assets/agents/' + a[0] + '.jpg" alt="" loading="lazy" width="74" height="74">'
+             +    '<b>' + a[1] + '</b><span class="price">$3.99</span>'
+             +  '</div>';
+      }
+      el.innerHTML = html;
+    }
+    paint();
+
+    // ⛔ RESPECT reduced-motion. An endlessly moving element on an otherwise
+    // still page is exactly what that setting exists to stop.
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) return;
+
+    setInterval(function () {
+      el.classList.add('swap');
+      setTimeout(function () { at = (at + 3) % AGENTS.length; paint(); el.classList.remove('swap'); }, 480);
+    }, 3600);
+  })();
+  </script>
 
   <footer>
     <span>Chatterbot&nbsp;2000</span>
