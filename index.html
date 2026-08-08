@@ -112,7 +112,17 @@ body::before {
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
 }
 
-.copy { min-width: 0; padding-left: 1.5vw; }
+/* ⛔ MUST BE A FULL-HEIGHT COLUMN, or `.cta { margin-top: auto }` has no free
+   space to eat and the ask floats up against the claims instead of sitting in
+   the corner. Height comes from the grid row, not from the content.
+   The gap between the claims and the ask is deliberate slack: the feature list
+   is going to grow (RAG + vault, voice transcription) and it eats this space
+   from the top without pushing the button off a scrollbar-free page. */
+.copy {
+  min-width: 0; padding-left: 1.5vw;
+  height: 100%; min-height: 0;
+  display: flex; flex-direction: column; justify-content: flex-start;
+}
 
 /* Centred masthead across the full sheet. */
 .masthead { text-align: center; margin: 1.2vh 0 0; }
@@ -143,7 +153,11 @@ h1 em {
 }
 .pitch {
   position: relative;
-  margin: 2vh 0 0;
+  /* ⛔ TWO auto margins - this one and .cta's - split the leftover height between
+     them, parking the balloon-and-claims group at Chatty's finger height rather
+     than against the masthead. Without it the ask being pinned to the floor
+     leaves a hole in the middle and he points at nothing. */
+  margin: auto 0 0;
   font-size: clamp(13px, 1.85vh, 17px);
   max-width: 27em;
   margin-left: -3.5vw;
@@ -168,7 +182,7 @@ h1 em {
   z-index: 1;
 }
 
-ul.points { list-style: none; margin: 1.6vh 0 0; padding: 0; display: grid; gap: .85vh; }
+ul.points { list-style: none; margin: 4vh 0 0; padding: 0; display: grid; gap: 1.05vh; }
 ul.points li { display: flex; align-items: baseline; gap: 10px; font-size: clamp(12px, 1.6vh, 15.5px); }
 ul.points .tick {
   flex: 0 0 auto; width: 1.15em; height: 1.15em; border-radius: 50%;
@@ -181,7 +195,11 @@ ul.points a { color: var(--tomato); font-weight: 700; }
 
 /* ⛔ ONE BUTTON. A second choice beside the download is a second decision, and
    the only decision this page wants is "yes". */
-.cta { margin-top: 2.1vh; }
+/* ⛔ THE ASK LIVES BOTTOM-RIGHT. It is the last thing in the reading order
+   and must not sit next to the claims his finger is pointing at, or the two
+   compete for the same attention. */
+.cta { margin-top: auto; text-align: right; }
+.tail { text-align: right; }
 .btn {
   display: inline-block;
   background: var(--tomato); color: #fff;
@@ -196,8 +214,8 @@ ul.points a { color: var(--tomato); font-weight: 700; }
 .btn:active { transform: translate(4px, 4px); box-shadow: 3px 3px 0 var(--ink); }
 .btn small { display: block; font-size: .48em; letter-spacing: .14em; opacity: .92; margin-top: .25em; }
 
-.fineprint { margin-top: 1.2vh; font-size: clamp(10px, 1.35vh, 13px); opacity: .8; max-width: 36em; }
-.soon { margin-top: .5vh; font-size: clamp(10px, 1.3vh, 12.5px); letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
+.fineprint { margin-top: 1.2vh; margin-left: auto; text-align: right; font-size: clamp(10px, 1.35vh, 13px); opacity: .8; max-width: 36em; }
+.soon { margin-top: .5vh; text-align: right; font-size: clamp(10px, 1.3vh, 12.5px); letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
 
 .burst {
   position: absolute; right: 1%; top: 3%;
@@ -261,8 +279,12 @@ footer .end { margin-left: auto; opacity: .6; }
     <div class="copy">
 
       <p class="pitch">
+        <!-- ⛔ "NO SUBSCRIPTION" UNQUALIFIED IS A CLAIM WE CANNOT DEFEND. A paid
+             provider key is a subscription - just not ours. The honest version is
+             that nothing is owed TO US, which is also the stronger claim, and it
+             survives the buyer discovering their DeepSeek balance. -->
         “Hi! I’m Chatty. I sit on your desktop and do things for you —
-        no browser tab, no sign-up, no subscription.”
+        no browser tab, no sign-up, and nothing to pay me, ever.”
       </p>
 
       <ul class="points">
@@ -275,11 +297,12 @@ footer .end { margin-left: auto; opacity: .6; }
 
       <div class="cta">
         <a class="btn" href="https://github.com/Pr1m4lc0d3/chatterbot-2000/releases/latest/download/Chatterbot-2000-Setup.exe">
-          Download Free for Windows<small>No account · No subscription</small>
+          Download Free for Windows<small>No account · Never a fee to us</small>
         </a>
       </div>
       <p class="fineprint">
-        You supply an API key from OpenAI, Anthropic or DeepSeek — or run a local model and pay nothing at all.
+        Chatty needs a brain: bring a key from OpenAI, Anthropic or DeepSeek and you pay
+        <i>them</i> for what you use — or run a local model and pay nobody anything.
       </p>
       <p class="soon">macOS · Linux · Android coming soon</p>
     </div>
