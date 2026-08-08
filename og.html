@@ -1,0 +1,158 @@
+<meta charset="utf-8">
+<title>Chatterbot 2000 — social card</title>
+
+<!--
+================================================================================
+  THE SOCIAL CARD. Rendered to a PNG, never linked or indexed.
+
+  ⛔ NOT THE HOME PAGE SHRUNK. A share card is seen at thumbnail size in a feed,
+  for about a second, next to competing noise. The home page carries six claims,
+  a widget, forty specialists and a price - all of which become illegible grey
+  texture at 1200x630 and cost the card the only thing it can actually land.
+
+  FOUR THINGS, AND NOTHING ELSE:
+     the title  ·  Chatty in his roundel  ·  what he says  ·  the red button
+
+  The pose does the work: he points RIGHT, so the button lives to his right at
+  exactly his finger height. That is the whole composition - a character
+  pointing at the thing you should click.
+
+  Rebuild with  tools\build-og.ps1  (renders this at 1200x630 and 1280x640).
+================================================================================
+-->
+
+<style>
+:root {
+  --paper:  #f7e7c3;
+  --ink:    #1c1a17;
+  --teal:   #0f9b9f;
+  --tomato: #e03127;
+  --gold:   #ffc93c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.5 "Futura", "Century Gothic", "Trebuchet MS", Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* Same halftone as the site, so the card is recognisably the same printing. */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: radial-gradient(var(--ink) 0.8px, transparent 0.9px);
+  background-size: 5px 5px;
+  opacity: .05;
+  pointer-events: none;
+}
+
+.card { position: relative; height: 100%; padding: 3.2vh 3% 0; }
+
+/* ---- title, across the top -------------------------------------------- */
+.masthead { text-align: center; }
+.eyebrow {
+  display: inline-block; margin: 0 0 1.2vh;
+  background: var(--ink); color: var(--paper);
+  font-size: 2.7vh; font-weight: 700;
+  letter-spacing: .34em; text-transform: uppercase;
+  padding: .5vh 1.1em .5vh calc(1.1em + .34em);
+}
+h1 {
+  margin: 0;
+  font-size: 10.4vh; line-height: .9;
+  letter-spacing: -.012em; text-transform: uppercase;
+  text-shadow: 4px 4px 0 var(--gold), 6px 6px 0 var(--ink);
+}
+h1 em {
+  /* Clear of the title's drop shadow - at 1.1vh the descenders collided with it. */
+  display: block; margin-top: 2.8vh;
+  font-size: .30em; font-style: italic; font-weight: 700;
+  letter-spacing: .004em; text-transform: none;
+  color: var(--tomato);
+  text-shadow: 2px 2px 0 var(--gold), 3px 3px 0 var(--ink);
+}
+
+/* ---- Chatty, bottom left ---------------------------------------------- */
+.art {
+  position: absolute; left: 1%; bottom: 2%;
+  width: 40%;
+  display: grid; place-items: center;
+}
+.art::before {
+  content: "";
+  position: absolute;
+  width: 88%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 6px var(--paper), 0 0 0 9px var(--ink);
+}
+.art img {
+  position: relative;
+  transform: translate(14%, -4%);
+  width: 100%; height: auto;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
+}
+
+/* ---- what he says ------------------------------------------------------ */
+.pitch {
+  position: absolute;
+  left: 41%; top: 26%;
+  width: 42%;
+  margin: 0;
+  font-size: 3.05vh; line-height: 1.35;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 1.7vh 1.5em;
+}
+/* The tail, pointing down-left at Chatty so the words are clearly his. */
+.pitch::after {
+  content: "";
+  position: absolute; left: 8%; bottom: -2.4vh;
+  border: 1.3vh solid transparent;
+  border-top-color: var(--ink);
+  border-bottom: 0;
+}
+
+/* ---- the ask, at the end of his finger --------------------------------- */
+/* ⛔ THE BUTTON SITS WHERE HE IS POINTING. Move one, move the other, or the
+   gesture stops meaning anything and the card loses its only instruction. */
+.btn {
+  position: absolute;
+  right: 4%; bottom: 30%;
+  display: inline-block;
+  background: var(--tomato); color: #fff;
+  font-size: 4.1vh; font-weight: 800;
+  letter-spacing: .03em; text-transform: uppercase;
+  text-decoration: none;
+  padding: .62em 1em;
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  text-align: center;
+  white-space: nowrap;
+}
+.btn small {
+  display: block; margin-top: .5vh;
+  font-size: .40em; letter-spacing: .12em; font-weight: 700;
+}
+</style>
+
+<div class="card">
+
+  <div class="masthead">
+    <p class="eyebrow">Introducing</p>
+    <h1>Chatterbot&nbsp;2000<em>the friendly little robot for your desktop</em></h1>
+  </div>
+
+  <div class="art">
+    <img src="assets/chatty-pointing.png" width="759" height="747" alt="">
+  </div>
+
+  <p class="pitch">“Hi! I’m Chatty. I sit on your desktop and do things for you —
+    no browser tab, no sign-up, and nothing to pay me, ever.”</p>
+
+  <span class="btn">Download Free<small>The app is free forever</small></span>
+
+</div>
