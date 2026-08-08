@@ -329,9 +329,6 @@ ul.points a { color: var(--tomato); font-weight: 700; }
   font-size: .8em; transform: translateY(-.05em); margin-right: .45em;
 }
 .upsell p { margin: .6vh 0 0; font-size: clamp(10px, 1.35vh, 13px); opacity: .78; }
-/* Slightly quieter than the pitch above it, but NOT small print - a refund
-   promise that has to be hunted for does not do the job it exists to do. */
-.upsell p.refund { margin-top: .8vh; font-size: clamp(9px, 1.2vh, 12px); opacity: .62; }
 .upsell a { color: var(--tomato); font-weight: 700; }
 
 /* Three at a time out of forty. A static trio implies the catalogue IS three;
@@ -410,6 +407,13 @@ footer {
 }
 footer a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--tomato); }
 footer .end { margin-left: auto; opacity: .6; }
+/* ⛔ THE REFUND LINE LIVES IN THIS BAR, NOT IN THE AD. Placed in .upsell it
+   added a paragraph to a fixed-height area and shoved the bullet points up the
+   page. The footer already exists, already spans the width, and has room going
+   spare - so the promise costs the layout nothing.
+   Centred by pushing off the name on its left; .end's own margin-left:auto then
+   holds the copyright at the right. */
+footer .refund { margin-left: auto; opacity: .6; text-align: center; }
 
 @media (max-width: 860px) {
   .ad { grid-template-columns: 1fr; gap: 1vh; text-align: center; }
@@ -531,14 +535,6 @@ footer .end { margin-left: auto; opacity: .6; }
         deeper in one trade — one payment, yours to keep, and entirely optional.
         <a href="https://deliberon.com/code-ai">See the roster</a>.
       </p>
-      <!-- ⛔ NEXT TO THE PRICE, NOT BURIED IN A FOOTER. The refund is worth more
-           where the money is being considered than in small print nobody opens,
-           and at $3.99 a dispute costs many times the sale - so the cheapest
-           policy is the one that makes asking easier than complaining. -->
-      <p class="refund">
-        <b>Not happy? Email within 14 days and you get your money back.</b>
-        No questions, no form to fill in.
-      </p>
     </div>
 
     <div class="cta">
@@ -619,6 +615,7 @@ footer .end { margin-left: auto; opacity: .6; }
          a few inches above. A second, plainer copy of the same link only gave
          the eye somewhere else to go. -->
     <span>Chatterbot&nbsp;2000</span>
+    <span class="refund">14-day refund · no questions</span>
     <span class="end">© 2026</span>
   </footer>
 </main>
