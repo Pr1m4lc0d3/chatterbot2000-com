@@ -3,6 +3,69 @@
 <title>Chatterbot 2000 — the chatbot you can trust</title>
 <meta name="description" content="A cheerful little robot for your desktop that tells you when it doesn't know. Free, forever. Bring your own API key.">
 
+<!-- ==========================================================================
+     GA4, AND THE ONLY EVENT THAT MATTERS HERE.
+
+     ⛔ THIS TAG HAS ALREADY BEEN LOST ONCE. It was added in ac4cf1f, verified
+     firing, then deleted by the "one screen, one job" redesign in 49d9933 -
+     and nothing broke, nothing looked wrong, and the property simply read zero
+     from 2026-08-05 until 08-09. A redesign that rewrites <head> must carry
+     this block across. The failure is invisible: the site works perfectly and
+     the numbers are just gone.
+
+     ⛔ THE DOWNLOAD LINK MUST BE INSTRUMENTED, NOT JUST COUNTED AS A PAGEVIEW.
+     Every conversion on this site is someone LEAVING to GitHub. Without the
+     listener below you can see that people arrived and never learn whether a
+     single one of them took the app, which is the only question worth asking.
+
+     ⛔ BOTH URL SHAPES COUNT. The button uses the version-less
+     /releases/latest/download/ form so pruning a release cannot 404 it; a
+     pattern matching only /releases/download/<tag>/ does not error on that, it
+     silently files a real download as idle interest.
+     ========================================================================== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGCW2SD7XK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-XGCW2SD7XK');   /* chatterbot2000.com */
+  gtag('config', 'G-F7WLK0CG8X');   /* all-sites roll-up  */
+
+  /* One delegated listener in the CAPTURE phase, so nothing calling
+     stopPropagation() can hide a conversion, and so a link added to the page
+     later is tracked without anyone remembering to wire it. */
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+
+    var url;
+    try { url = new URL(a.getAttribute('href') || '', location.origin); }
+    catch (err) { return; }
+    if (url.origin === location.origin) return;
+
+    var host = url.hostname.toLowerCase();
+    if (host !== 'github.com' && host.indexOf('.github.com') === -1) return;
+
+    var p = {
+      link_url:  url.href,
+      link_text: (a.textContent || '').trim().slice(0, 100),
+      page_path: location.pathname
+    };
+
+    var pinned = url.pathname.match(/\/releases\/download\/([^/]+)\/(.+)$/);
+    var latest = url.pathname.match(/\/releases\/latest\/download\/(.+)$/);
+
+    if (pinned || latest) {
+      p.release   = pinned ? pinned[1] : 'latest';
+      p.file_name = pinned ? pinned[2] : latest[1];
+      gtag('event', 'download_click', p);
+    } else {
+      /* Release notes, the repo, the roster - interest, not a download. */
+      gtag('event', 'github_click', p);
+    }
+  }, true);
+</script>
+
 <link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="assets/icon-192.png" sizes="192x192" type="image/png">
@@ -631,6 +694,14 @@ footer .end { margin-left: auto; opacity: .6; }
          a few inches above. A second, plainer copy of the same link only gave
          the eye somewhere else to go. -->
     <span>Chatterbot&nbsp;2000</span>
+    <!-- ⛔ SAYS SO, BECAUSE IT DOES. This page runs Google Analytics; a site
+         selling honesty as the product cannot be quiet about that.
+         ⛔ "no telemetry" IS VERIFIED, NOT ASSUMED - the app contains no
+         analytics SDK of any kind. It was nearly written as "doesn't phone
+         home", which would have been FALSE: the app calls the licence relay,
+         Hugging Face for the voice model, and the weather and search APIs.
+         Never widen this claim without grepping the app again. -->
+    <span>This page uses Google Analytics. The app has no account and no telemetry.</span>
     <span class="end">© 2026</span>
   </footer>
 </main>
