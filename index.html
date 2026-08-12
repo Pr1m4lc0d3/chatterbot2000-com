@@ -526,7 +526,9 @@ footer .end { margin-left: auto; opacity: .6; }
 
   ul.points { max-width: 30em; margin-left: auto; margin-right: auto; text-align: left; }
   footer { justify-content: center; }
-  .pitch, .fineprint { margin-left: auto; margin-right: auto; }
+  /* ⛔ .pitch IS NOT CENTRED HERE - it is anchored to Chatty's hand. Centring it
+     was what pulled the balloon away from him. Only .fineprint centres. */
+  .fineprint { margin-left: auto; margin-right: auto; }
   /* ⛔ THE STANDING WIDGET IS A WIDE-SCREEN LUXURY. On a phone it would sit on
      top of the masthead, and the reflection alone costs more height than the
      headline. The page still says everything without it. */
@@ -539,8 +541,19 @@ footer .end { margin-left: auto; opacity: .6; }
     position: static; transform: none;
     width: auto; left: auto; right: auto; bottom: auto; top: auto;
   }
-  .art { max-width: 62vw; margin: 0 auto; }
-  .copy { padding-right: 1.5vw; padding-top: 1vh; }
+  /* ⛔ DO NOT STACK CHATTY ABOVE THE BALLOON. Static positioning put him first
+     and the balloon underneath, which broke the only piece of storytelling on
+     the page: he points RIGHT - the alt text says so - and the balloon's tail
+     points LEFT at him. Stacked, he gestures at nothing and the tail aims at
+     blank paper, so the picture stops meaning anything.
+     Floating him keeps the pair side by side in ordinary flow: he sits left at
+     a third of the width, the balloon wraps beside him with its tail landing on
+     his arm, and everything after it still runs full width underneath. */
+  .art { float: left; width: 34%; max-width: 34%; margin: .5vh 4% 1vh 0; }
+  .copy { padding-right: 1.5vw; padding-top: 1vh; overflow: hidden; }
+
+  /* The balloon must not centre itself here, or it pulls away from his hand. */
+  .pitch { margin-left: 0; margin-right: 0; max-width: none; text-align: left; }
   .cta, .upsell { text-align: center; margin-top: 1.6vh; }
 }
 </style>
