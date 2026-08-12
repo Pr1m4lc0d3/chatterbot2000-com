@@ -555,7 +555,13 @@ footer .end { margin-left: auto; opacity: .6; }
   /* ⛔ position:relative IS LOAD-BEARING. His teal roundel is an absolute ::before
      sized from .art; made static above, it anchored to an ancestor instead, grew
      off the left edge of the phone and sat on top of the tagline. */
-  .art { position: relative; float: left; width: 34%; max-width: 34%; margin: .5vh 4% 1vh 0; }
+  /* ⛔ THE WIDTH NEEDS A HEIGHT CEILING, OR LANDSCAPE BREAKS IT. Turned sideways
+     a phone is 844x390: 34% is 287px, the roundel is 90% of that, and a 258px
+     circle on a 390px-tall screen climbs straight into the masthead. The picture
+     is capped at 25vh, so the box holding it must be capped the same way or the
+     two disagree again. 30vh only ever bites when the screen is short - upright,
+     34% is the smaller number and wins on its own. */
+  .art { position: relative; float: left; width: 34%; max-width: min(34%, 30vh); margin: .5vh 4% 1vh 0; }
   .copy { padding-right: 1.5vw; padding-top: 1vh; overflow: hidden; }
 
   /* The balloon must not centre itself here, or it pulls away from his hand. */
