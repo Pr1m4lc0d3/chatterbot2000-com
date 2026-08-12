@@ -483,6 +483,17 @@ footer a { color: var(--ink); text-decoration: none; border-bottom: 2px solid va
 footer .end { margin-left: auto; opacity: .6; }
 
 @media (max-width: 860px) {
+  /* ⛔ THE ONE-SCREEN LAW IS A DESKTOP LAW, AND ON A PHONE IT HID THE ONLY
+     BUTTON THAT MATTERS. html/body are height-locked with overflow:hidden so the
+     layout compresses instead of growing a scrollbar - correct on a wide screen,
+     fatal on a narrow one. Measured on a 390x844 phone: the page needed 1217px,
+     the Download button sat at y=1042, and overflow:hidden meant it could not be
+     scrolled to. Not "looks cramped" - the page's entire job was IMPOSSIBLE, for
+     roughly a fifth of the traffic.
+     A phone scrolls. Let it. */
+  html, body { height: auto; overflow: visible; }
+  .sheet { height: auto; min-height: 100%; padding-bottom: 4vh; }
+
   .ad { grid-template-columns: 1fr; gap: 1vh; text-align: center; }
   .art { order: -1; }
   .art img { height: 25vh; }
