@@ -130,6 +130,14 @@ h1 em {
 }
 .band .price { font-size: clamp(20px, 3.4vh, 30px); font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
 .band .price span { font-size: clamp(11px, 1.6vh, 15px); font-weight: 400; opacity: .85; }
+/* The one shouted thing in the band, in the period's spot colour. */
+.band .flash {
+  display: block; margin-bottom: .3vh;
+  background: var(--gold); color: var(--ink);
+  font-size: clamp(12px, 1.8vh, 16px); font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 8px;
+}
 .band ul { margin: 0; padding: 0; list-style: none; flex: 1 1 340px; }
 .band li { font-size: clamp(11px, 1.5vh, 13.5px); line-height: 1.7; }
 .band li::before { content: "✓"; color: var(--gold); font-weight: 700; margin-right: 8px; }
@@ -256,10 +264,10 @@ h1 em {
       <p>Inside the app, which is the only place you need to look. Open
          Chatterbot, click the <b>gear</b>, click <b>AGENT</b>, and walk the
          roster — a face, what it does, one button.</p>
-      <p>Buy the one you want and it unlocks <b>in place</b>. No account, nothing
-         to copy or paste; the app collects the key itself and the button
-         becomes <b>Load</b>.</p>
-      <p>Keep as many as you like, one on your desktop at a time.</p>
+      <p>Ask for the <b>free trial</b> and every one of the forty opens for seven
+         days — no card, no account, nothing to cancel. It simply ends.</p>
+      <p>Buy the one you kept reaching for and it unlocks <b>in place</b>: the app
+         collects the key itself and the button becomes <b>Load</b>.</p>
     </div>
 
     <div class="col">
@@ -276,9 +284,18 @@ h1 em {
     </div>
   </div>
 
+  <!-- ⛔ THE TRIAL GOES FIRST, BEFORE THE PRICE. Seven days with all forty
+       unlocked and no card is the strongest thing on this page, and it spent its
+       first days visible only to people who had already installed the app and
+       opened the picker - which is to say, only to people who were already
+       sold. -->
   <div class="band">
-    <div class="price">$9.99 <span>a month, per specialist</span></div>
+    <div class="price">
+      <b class="flash">7 days free</b>
+      $9.99 <span>a month after that, per specialist</span>
+    </div>
     <ul>
+      <li>The trial unlocks <b>all forty</b> — no card, nothing to cancel</li>
       <li>Cancel any time — and you keep the month you have paid for</li>
       <li>14-day refund on your first payment, no questions</li>
       <li>Your own API key: we never see it, and never see what you ask</li>
@@ -333,6 +350,10 @@ h1 em {
   <div class="card">
     <button class="x" data-close aria-label="Close">✕</button>
     <h3 id="h-pay">What you pay</h3>
+    <p><b>The trial costs nothing and takes no card.</b> Ask for it inside the
+      app and all forty specialists open for <b>seven days</b>, once per
+      installation. There is nothing to cancel: the key it issues carries its own
+      expiry, so when the week is up everything simply locks again.</p>
     <p>Chatterbot 2000 is free, forever. A specialist is <b>$9.99 per month, per
       specialist</b>, billed automatically until you cancel.</p>
     <p><b>The model is not included.</b> You bring your own API key from a
