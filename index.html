@@ -549,7 +549,10 @@ footer .end { margin-left: auto; opacity: .6; }
      Floating him keeps the pair side by side in ordinary flow: he sits left at
      a third of the width, the balloon wraps beside him with its tail landing on
      his arm, and everything after it still runs full width underneath. */
-  .art { float: left; width: 34%; max-width: 34%; margin: .5vh 4% 1vh 0; }
+  /* ⛔ position:relative IS LOAD-BEARING. His teal roundel is an absolute ::before
+     sized from .art; made static above, it anchored to an ancestor instead, grew
+     off the left edge of the phone and sat on top of the tagline. */
+  .art { position: relative; float: left; width: 34%; max-width: 34%; margin: .5vh 4% 1vh 0; }
   .copy { padding-right: 1.5vw; padding-top: 1vh; overflow: hidden; }
 
   /* The balloon must not centre itself here, or it pulls away from his hand. */
