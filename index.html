@@ -496,9 +496,21 @@ footer .end { margin-left: auto; opacity: .6; }
 
   .ad { grid-template-columns: 1fr; gap: 1vh; text-align: center; }
   .art { order: -1; }
-  .art img { height: 25vh; }
+  /* ⛔ NEVER SET HEIGHT WHILE WIDTH IS 100%. That is the rubber-band: the base
+     rule is width:100%/height:auto, and this overrode the height only, so Chatty
+     was squashed to a 1.15 ratio against his true 1.02. Constrain with MAX
+     dimensions and let the picture keep its own shape. */
+  .art img { height: auto; width: auto; max-height: 25vh; max-width: 100%; }
   .art::before { width: 20vh; }
   .burst { width: 11vh; left: auto; right: 0; top: 0; }
+  /* ⛔ THE BUTTON RAN OFF THE SCREEN. Its size came from viewport HEIGHT
+     (2.35vh) while the thing that constrains it is WIDTH - so on a 390px phone
+     it measured 431px and the right-hand 41px, including part of the label, sat
+     outside the screen. On a narrow screen the type has to scale with width.
+     It stays one line, as the base rule insists; it just fits now. */
+  .btn { font-size: clamp(13px, 4.1vw, 19px); padding: .75em 1.15em; max-width: 100%; }
+  .btn small { font-size: .5em; }
+
   ul.points { max-width: 30em; margin-left: auto; margin-right: auto; text-align: left; }
   footer { justify-content: center; }
   .pitch, .fineprint { margin-left: auto; margin-right: auto; }
