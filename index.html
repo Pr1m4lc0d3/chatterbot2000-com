@@ -501,7 +501,10 @@ footer .end { margin-left: auto; opacity: .6; }
      was squashed to a 1.15 ratio against his true 1.02. Constrain with MAX
      dimensions and let the picture keep its own shape. */
   .art img { height: auto; width: auto; max-height: 25vh; max-width: 100%; }
-  .art::before { width: 20vh; }
+  /* ⛔ NO vh ON THE ROUNDEL. Left over from when Chatty was stacked full-width:
+     20vh is 169px on a phone inside a 107px box, so the circle hung off the left
+     edge and sat over the balloon. It is sized from .art in the base rule and
+     that is the only source it may have. */
   /* ⛔ THE MASTHEAD WAS SIZED BY HEIGHT AND BROKE ON WIDTH. Three separate
      symptoms, one cause - vh units on a phone give a tall viewport and a narrow
      one, so type grew while the space for it shrank:
