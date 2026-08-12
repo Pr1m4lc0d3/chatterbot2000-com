@@ -502,6 +502,19 @@ footer .end { margin-left: auto; opacity: .6; }
      dimensions and let the picture keep its own shape. */
   .art img { height: auto; width: auto; max-height: 25vh; max-width: 100%; }
   .art::before { width: 20vh; }
+  /* ⛔ THE MASTHEAD WAS SIZED BY HEIGHT AND BROKE ON WIDTH. Three separate
+     symptoms, one cause - vh units on a phone give a tall viewport and a narrow
+     one, so type grew while the space for it shrank:
+       - "CHATTERBOT 2000" set 62px inside a 315px box and ran off the screen
+       - the italic line had font-size 27.5px against line-height 22.5px, so
+         "the friendly little robot" and "you can trust" sat ON each other
+       - the FREE! starburst (x 274-384) covered the tagline (x 243-345)
+     Type that must fit a width is sized in vw. The tagline goes: the starburst
+     is the one saying the thing worth reading, and two of them cannot share
+     that corner on a 390px screen. */
+  h1 { font-size: clamp(26px, 9.4vw, 46px); }
+  h1 em { font-size: .46em; line-height: 1.12; }
+  .top .since { display: none; }
   .burst { width: 11vh; left: auto; right: 0; top: 0; }
   /* ⛔ THE BUTTON RAN OFF THE SCREEN. Its size came from viewport HEIGHT
      (2.35vh) while the thing that constrains it is WIDTH - so on a 390px phone
