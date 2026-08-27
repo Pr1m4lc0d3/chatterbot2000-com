@@ -117,7 +117,11 @@ h1 em {
 .art img {
   position: relative;
   width: 81%; height: auto;
-  transform: translate(-6%, -5%);
+  /* Chosen by rendering the card at six offsets and comparing them, not by
+     nudging one at a time: at 0 his base and right elbow cross the bottom-right
+     rim, and by -6/-5 he has pulled away from the right edge and left a bare
+     wedge of teal. -3/-4 is the pair with air on all four sides. */
+  transform: translate(-3%, -4%);
   filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
 }
 
