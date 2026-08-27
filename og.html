@@ -13,9 +13,12 @@
   FOUR THINGS, AND NOTHING ELSE:
      the title  ·  Chatty in his roundel  ·  what he says  ·  the red button
 
-  The pose does the work: he points RIGHT, so the button lives to his right at
-  exactly his finger height. That is the whole composition - a character
-  pointing at the thing you should click.
+  ⛔ HE WAVES, HE DOES NOT POINT. The earlier card had him pointing right, on
+  the theory that a character pointing at a button tells you to click it. He was
+  not pointing AT anything - the button sits in the quadrant below his finger,
+  not on it, and at thumbnail size the gesture reads as an arm sticking out.
+  A wave is the greeting the speech bubble is already making, so pose and words
+  say one thing instead of two.
 
   Rebuild with  tools\build-og.ps1  (renders this at 1200x630 and 1280x640).
 ================================================================================
@@ -87,10 +90,17 @@ h1 em {
   background: var(--teal);
   box-shadow: 0 0 0 6px var(--paper), 0 0 0 9px var(--ink);
 }
+/* ⛔ SIZED BY WIDTH, BUT THE POSE DECIDES THE NUMBER. The pointing tile was
+   almost square and filled the roundel at 100%; the waving tile is portrait
+   (705x842), so 100% would stand a head taller than the roundel and crowd the
+   title. 88% lands his height where the pointing pose's was and keeps him
+   filling the teal rather than floating in it. The old 14% nudge right existed
+   only to balance the outstretched arm - the wave is symmetrical about the
+   body, so it centres. */
 .art img {
   position: relative;
-  transform: translate(14%, -4%);
-  width: 100%; height: auto;
+  transform: translate(0, -2%);
+  width: 88%; height: auto;
   filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
 }
 
@@ -117,10 +127,10 @@ h1 em {
 }
 
 /* ---- the ask, filling the bottom-right quadrant ------------------------ */
-/* ⛔ THE BUTTON SITS WHERE HE IS POINTING. Move one, move the other, or the
-   gesture stops meaning anything and the card loses its only instruction.
-   The quadrant IS the target: he points into this box, so anything centred in
-   it reads as the thing he means, and it can be as large as the space allows.
+/* The button owns the bottom-right quadrant outright. It no longer leans on a
+   gesture to say it is the thing to click - it is the only red object on cream
+   paper, at the end of the reading path, which is a stronger signal than a
+   finger was.
 
    ⛔ SIZED FOR A THUMBNAIL, NOT FOR THIS FILE. Seen in a Discord or Slack
    unfurl the card is rendered around half this wide, and the previous button's
@@ -176,11 +186,11 @@ h1 em {
   </div>
 
   <div class="art">
-    <img src="assets/chatty-pointing.png" width="759" height="747" alt="">
+    <img src="assets/chatty-waving.png" width="705" height="842" alt="">
   </div>
 
   <p class="pitch">“Hi! I’m Chatty. I sit on your desktop and do things for you.
-    no browser tab, no sign-up, and nothing to pay me, ever.”</p>
+    No browser tab, no sign-up, and nothing to pay me, ever.”</p>
 
   <div class="ask">
     <span class="btn">Download Free<em>for Windows</em><small>Free forever · No account</small></span>
