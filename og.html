@@ -96,11 +96,16 @@ h1 em {
   background: var(--teal);
   box-shadow: 0 0 0 6px var(--paper), 0 0 0 9px var(--ink);
 }
-/* ⛔ NO NUDGE HERE, AND THERE MUST NOT BE ONE. He is centred by WEIGHT in the PNG
-   itself (build_wave_art.py pads the canvas), because a raised arm reaches one
-   way and nothing the other. A nudge in CSS would be a second opinion about
-   where his middle is, and the two would drift apart the moment the pose
-   changed.
+/* TWO DIFFERENT QUESTIONS, AND THEY LIVE IN DIFFERENT PLACES.
+   WHERE HIS MIDDLE IS belongs to the PNG: build_wave_art.py pads the canvas so
+   he is centred by coverage weight, because a raised arm reaches one way and
+   nothing the other and a bounding box straddles the empty air. ⛔ Never
+   re-answer that here; two opinions about his middle drift apart the moment the
+   pose is recut.
+   WHERE HE SITS IN THE ROUNDEL is this card's question, and the answer is the
+   translate below - dead centre read as sunk and slightly right, so he is lifted
+   and moved out toward his own raised hand. Kept in percentages of his own box
+   so it survives a resize.
 
    ⛔ SIZE HIM BY WIDTH, NOT HEIGHT, EVEN THOUGH HEIGHT IS WHAT IS BEING JUDGED.
    `height: 88%; width: auto` blew the card apart: a grid item's min-width is
@@ -112,6 +117,7 @@ h1 em {
 .art img {
   position: relative;
   width: 81%; height: auto;
+  transform: translate(-6%, -5%);
   filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
 }
 
