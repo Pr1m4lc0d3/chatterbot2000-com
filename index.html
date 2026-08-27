@@ -85,10 +85,10 @@
      claims, the widget and the specialists collapsed into grey texture. The card
      is its own sparse composition in og.html - title, Chatty, one line, one
      button - rebuilt by Website\tools\build-og.ps1. -->
-<meta property="og:image" content="https://chatterbot2000.com/assets/og-v6.png">
+<meta property="og:image" content="https://chatterbot2000.com/assets/og-v7.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Chatterbot 2000 - Chatty the robot pointing at what the free app does, with the download button.">
+<meta property="og:image:alt" content="Chatterbot 2000 - Chatty the robot waving hello, with the download button.">
 <meta name="twitter:card" content="summary_large_image">
 
 <style>
@@ -261,10 +261,21 @@ body::before {
 }
 .art img {
   position: relative;
-  transform: translate(14%, -4%);
+  /* ⛔ NOT 14% ANY MORE. That nudge existed to balance the pointing arm, which
+     reached right out of the frame. The waving pose is centred by coverage
+     weight inside the PNG itself, so a sideways push here would be a second
+     opinion about where his middle is. Vertical only. */
+  transform: translate(0, -4%);
   /* ⛔ ONE SIZE SOURCE: his box. .art owns the width, he fills it, the roundel
-     is a fixed fraction of the same box. Nothing here can disagree. */
-  width: 100%; height: auto; max-width: none;
+     is a fixed fraction of the same box. Nothing here can disagree.
+     ⛔ NOT 100%, AND THE NUMBER IS THE POSE'S. The pointing tile was 759x747 and
+     filled the box; the waving one is 748x820, so 100% stands him a head taller
+     in the same space. 94/-4 was picked by rendering four size-and-lift pairs
+     and comparing them: it keeps him BURSTING OUT of the roundel the way the old
+     pose did - head over the top rim, base below the bottom one - where 86 sank
+     him inside the circle and 98 pushed his head through the right rim.
+     Retune on any recut. */
+  width: 94%; height: auto; max-width: none;
   display: block;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
 }
@@ -545,10 +556,12 @@ footer .end { margin-left: auto; opacity: .6; }
     width: auto; left: auto; right: auto; bottom: auto; top: auto;
   }
   /* ⛔ DO NOT STACK CHATTY ABOVE THE BALLOON. Static positioning put him first
-     and the balloon underneath, which broke the only piece of storytelling on
-     the page: he points RIGHT - the alt text says so - and the balloon's tail
-     points LEFT at him. Stacked, he gestures at nothing and the tail aims at
-     blank paper, so the picture stops meaning anything.
+     and the balloon underneath, and the balloon's tail points LEFT at whoever is
+     speaking. Stacked, the tail aims at blank paper and the words stop being
+     his, which is the only piece of storytelling on the page.
+     (The original reason written here was that he POINTS right, so the two
+     gestures met. He waves now, and the rule survives the change: the tail still
+     has to land on him.)
      Floating him keeps the pair side by side in ordinary flow: he sits left at
      a third of the width, the balloon wraps beside him with its tail landing on
      his arm, and everything after it still runs full width underneath. */
@@ -615,9 +628,15 @@ footer .end { margin-left: auto; opacity: .6; }
     <div class="art">
       <!-- ⛔ THE PLAIN POSE, NOT hero-chatty.png. That one has a faded reflection
              baked in, and its semi-transparent pixels let the teal roundel show
-             straight through his body. -->
-      <img src="assets/chatty-pointing.png" width="759" height="747"
-           alt="Chatty, a small cream-coloured robot with a glowing smile, pointing to the right.">
+             straight through his body.
+           ⛔ AND NOT chatty-pointing.png EITHER. He waved on the share card from
+             2026-08-27 and the two are the same product; a page whose picture
+             disagrees with its own social card reads as two different products.
+             chatty-waving.png is cut by Assets\tools\build_wave_art.py, which
+             also centres him by coverage weight - so nothing here needs to nudge
+             him sideways the way the pointing arm did. -->
+      <img src="assets/chatty-waving.png" width="748" height="820"
+           alt="Chatty, a small cream-coloured robot with a glowing smile, waving hello.">
     </div>
 
     <div class="copy">
