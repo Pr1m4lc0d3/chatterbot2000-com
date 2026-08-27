@@ -77,30 +77,41 @@ h1 em {
 }
 
 /* ---- Chatty, bottom left ---------------------------------------------- */
+/* ⛔ SIZED BY HEIGHT, AND THE BOX IS THE ROUNDEL. This was `width: 40%` with the
+   art free to be as tall as it liked, and the pose that followed was taller than
+   the space: his base and the bottom of the roundel were both cut off by the
+   edge of the card. A square box with a fixed height cannot do that - whatever
+   fits in the circle fits on the card, and the only number to tune is his size
+   inside it. */
 .art {
-  position: absolute; left: 1%; bottom: 2%;
-  width: 40%;
+  position: absolute; left: 2%; bottom: 4%;
+  height: 66%; aspect-ratio: 1;
   display: grid; place-items: center;
 }
 .art::before {
   content: "";
   position: absolute;
-  width: 88%; aspect-ratio: 1;
+  width: 100%; aspect-ratio: 1;
   border-radius: 50%;
   background: var(--teal);
   box-shadow: 0 0 0 6px var(--paper), 0 0 0 9px var(--ink);
 }
-/* ⛔ SIZED BY WIDTH, BUT THE POSE DECIDES THE NUMBER. The pointing tile was
-   almost square and filled the roundel at 100%; the waving tile is portrait
-   (705x842), so 100% would stand a head taller than the roundel and crowd the
-   title. 88% lands his height where the pointing pose's was and keeps him
-   filling the teal rather than floating in it. The old 14% nudge right existed
-   only to balance the outstretched arm - the wave is symmetrical about the
-   body, so it centres. */
+/* ⛔ NO NUDGE HERE, AND THERE MUST NOT BE ONE. He is centred by WEIGHT in the PNG
+   itself (build_wave_art.py pads the canvas), because a raised arm reaches one
+   way and nothing the other. A nudge in CSS would be a second opinion about
+   where his middle is, and the two would drift apart the moment the pose
+   changed.
+
+   ⛔ SIZE HIM BY WIDTH, NOT HEIGHT, EVEN THOUGH HEIGHT IS WHAT IS BEING JUDGED.
+   `height: 88%; width: auto` blew the card apart: a grid item's min-width is
+   auto, the percentage height is indefinite while the track is being measured,
+   so the image fell back to its intrinsic 748px, dragged the track out with it,
+   and aspect-ratio turned that into a roundel most of the card wide. The box's
+   width IS definite (its height times aspect-ratio), so a percentage width is
+   safe. Retune this if the pose is recut at a different aspect. */
 .art img {
   position: relative;
-  transform: translate(0, -2%);
-  width: 88%; height: auto;
+  width: 81%; height: auto;
   filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
 }
 
@@ -186,7 +197,7 @@ h1 em {
   </div>
 
   <div class="art">
-    <img src="assets/chatty-waving.png" width="705" height="842" alt="">
+    <img src="assets/chatty-waving.png" width="748" height="820" alt="">
   </div>
 
   <p class="pitch">“Hi! I’m Chatty. I sit on your desktop and do things for you.
